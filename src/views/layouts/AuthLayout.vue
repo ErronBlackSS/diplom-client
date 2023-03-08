@@ -1,5 +1,5 @@
 <template>
-  <section class="flex h-full justify-center">
+  <section class="flex h-full justify-center text-red">
     <p>Обертка под авторизацию</p>
     <slot />
   </section>

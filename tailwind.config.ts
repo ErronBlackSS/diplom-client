@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./public/index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       fontFamily: {
@@ -9,10 +8,5 @@ module.exports = {
       }
     }
   },
-  variants: {
-    extend: {
-      animation: ['hover', 'group-hover']
-    }
-  },
-  plugins: ['postcss-nesting', require('@tailwindcss/line-clamp')]
+  plugins: []
 }

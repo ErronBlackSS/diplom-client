@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+  },
   "compilerOptions": {
     "resolveJsonModule": true,
     "experimentalDecorators": true,
