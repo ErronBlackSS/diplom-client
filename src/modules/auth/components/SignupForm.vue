@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-[15px] w-full">
     <input type="email" class="py-2 px-4 rounded-md border border-[#000] outline-none" />
     <input type="password" class="py-2 px-4 rounded-md border border-[#000] outline-none" />
-    <UIButton> Войти </UIButton>
+    <UIButton> Зарегистрироваться </UIButton>
   </div>
 </template>
 
