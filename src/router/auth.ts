@@ -8,12 +8,12 @@ export default [
       {
         path: 'sign-in',
         name: 'sign-in',
-        component: import('@/views/SigninView.vue')
+        component: () => import('@/views/SigninView.vue')
       },
       {
         path: 'sign-up',
         name: 'sign-up',
-        component: import('@/views/SignupView.vue')
+        component: () => import('@/views/SignupView.vue')
       }
     ]
   }
