@@ -10,6 +10,6 @@ export const shouldRedirectToAuthorization = (to, from, next) => {
   if (isAuthentificated()) {
     next('/main')
   } else {
-    next('auth/signin')
+    next('/auth/signin')
   }
 }

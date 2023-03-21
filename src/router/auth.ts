@@ -7,12 +7,12 @@ export default [
     children: [
       {
         path: 'sign-in',
-        name: 'signin',
+        name: 'sign-in',
         component: import('@/views/SigninView.vue')
       },
       {
         path: 'sign-up',
-        name: 'signup',
+        name: 'sign-up',
         component: import('@/views/SignupView.vue')
       }
     ]

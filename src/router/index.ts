@@ -8,8 +8,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/signin',
-      beforeEnter: shouldRedirectToAuthorization
+      beforeEnter: shouldRedirectToAuthorization,
+      redirect: '/auth/sign-in'
     },
     ...AuthRouter
   ]
