@@ -1,5 +1,5 @@
 <template>
-  <UIForm submit-text="Создать аккаунт">
+  <UIForm @submit="singup" submit-text="Создать аккаунт" :error-message="errorText">
     <FormInput
       title="Почта"
       type="email"
@@ -16,6 +16,9 @@
       input-name="email"
       v-model="password"
     />
+    <div v-if="complete">
+      <p>Вам на почту отправлено письмо с подтверждением</p>
+    </div>
     <template #link>
       <span className="text-gray"> Уже есть аккаунт? </span>
       <router-link to="/auth/sign-in">Авторизоваться</router-link>
@@ -27,13 +30,30 @@
 import { defineComponent } from 'vue'
 import FormInput from '@/ui/FormInput.vue'
 import UIForm from '@/ui/UIForm.vue'
+import { useAuthStore } from '../store'
+import { mapStores } from 'pinia'
 
 export default defineComponent({
   components: { FormInput, UIForm },
   data: () => ({
     email: '' as string,
-    password: '' as string
-  })
+    password: '' as string,
+    errorText: '' as string,
+    complete: false
+  }),
+  computed: {
+    ...mapStores(useAuthStore)
+  },
+  methods: {
+    async singup() {
+      try {
+        await this.authStore.singup(this.email, this.password)
+        this.complete = true
+      } catch (error) {
+        if (typeof error === 'string') this.errorText = error
+      }
+    }
+  }
 })
 </script>
 

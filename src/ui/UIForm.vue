@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col gap-[15px] w-full">
+  <form class="flex flex-col gap-[15px] w-full" @submit.prevent="submit">
     <div
       v-if="errorMessage"
       class="py-[22px] font-[500] flex items-center justify-center px-[20px] text-[#E53E3E] rounded-[6px] bg-[#FCE3E3] text-[15px] leading-[150%]"
@@ -9,7 +9,7 @@
     <div class="flex flex-col gap-[10px]">
       <slot />
     </div>
-    <button @click.stop="submit" class="px-[10px] py-[10px] border" type="submit">
+    <button class="px-[10px] py-[10px] border" type="submit">
       {{ submitText }}
     </button>
     <div class="text-center empty:hidden">
@@ -35,6 +35,7 @@ export default defineComponent({
   emits: ['submit'],
   methods: {
     submit() {
+      console.log('jopa')
       this.$emit('submit')
     }
   }

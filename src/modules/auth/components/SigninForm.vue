@@ -1,5 +1,5 @@
 <template>
-  <UIForm submit-text="Войти">
+  <UIForm submit-text="Войти" @submit="singup">
     <FormInput
       title="Почта"
       type="email"
@@ -27,13 +27,23 @@
 import { defineComponent } from 'vue'
 import FormInput from '@/ui/FormInput.vue'
 import UIForm from '@/ui/UIForm.vue'
+import { useAuthStore } from '../store'
+import { mapStores } from 'pinia'
 
 export default defineComponent({
   components: { FormInput, UIForm },
   data: () => ({
     email: '' as string,
     password: '' as string
-  })
+  }),
+  computed: {
+    ...mapStores(useAuthStore)
+  },
+  methods: {
+    singup() {
+      //this.authStore.singup(this.email, this.password)
+    }
+  }
 })
 </script>
 
