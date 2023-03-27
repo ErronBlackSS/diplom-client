@@ -6,6 +6,9 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     singup(email: string, password: string) {
       return Api.singup(email, password)
+    },
+    confirmEmail(token: string) {
+      return Api.confirmEmail(token)
     }
   }
 })

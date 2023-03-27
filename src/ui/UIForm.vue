@@ -35,7 +35,6 @@ export default defineComponent({
   emits: ['submit'],
   methods: {
     submit() {
-      console.log('jopa')
       this.$emit('submit')
     }
   }

@@ -16,7 +16,6 @@ export async function singin(email: string, password: string): Promise<responses
 export async function singup(email: string, password: string): Promise<responses.SignupResponse> {
   try {
     const res = await axios.post<responses.SignupResponse>('/auth/signup', { email, password })
-    console.log(res, 'res')
     return res.data
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -29,5 +28,14 @@ export async function singup(email: string, password: string): Promise<responses
       }
     }
     return Promise.reject(error)
+  }
+}
+
+export async function confirmEmail(token: string) {
+  try {
+    const res = await axios.post('/auth/confirmEmail', { token })
+    return res.data
+  } catch (error) {
+    Promise.reject(error)
   }
 }
