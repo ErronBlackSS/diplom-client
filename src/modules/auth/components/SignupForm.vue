@@ -17,7 +17,7 @@
       v-model="password"
     />
     <div v-if="complete">
-      <p>Вам на почту отправлено письмо с подтверждением</p>
+      <p class="text-green-500">Вам на почту отправлено письмо с подтверждением</p>
     </div>
     <template #link>
       <span className="text-gray"> Уже есть аккаунт? </span>

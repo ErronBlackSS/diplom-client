@@ -1,7 +1,12 @@
 import axios from '@/plugins/axios'
 import { AxiosError } from 'axios'
 import * as responses from '../models/'
-import { USER_ALREADY_EXISTS, EMAIL_VERIFICATION_CONFLICT } from '../utils/error.constants'
+import { setUserTokens } from '../utils/auth.helpers'
+import {
+  USER_ALREADY_EXISTS,
+  EMAIL_VERIFICATION_CONFLICT,
+  INVALID_ACTIVATION_TOKEN
+} from '../utils/error.constants'
 
 export async function singin(email: string, password: string): Promise<responses.TokensResponse> {
   try {
@@ -31,11 +36,22 @@ export async function singup(email: string, password: string): Promise<responses
   }
 }
 
-export async function confirmEmail(token: string) {
+export async function register(token: string): Promise<responses.UserResponse> {
   try {
-    const res = await axios.post('/auth/confirmEmail', { token })
-    return res.data
+    const res = await axios.post<responses.RegisterResponse>('/auth/register', { token })
+
+    const { user, tokens } = res.data
+    const { access_token, refresh_token } = tokens
+
+    setUserTokens(access_token, refresh_token)
+
+    return user
   } catch (error) {
-    Promise.reject(error)
+    if (error instanceof AxiosError) {
+      if (error.response?.data?.message === INVALID_ACTIVATION_TOKEN) {
+        return Promise.reject('Неверный код активации аккаунта!')
+      }
+    }
+    return Promise.reject(error)
   }
 }

@@ -1,5 +1,9 @@
 <template>
-  <UIButton @click="activate">Активировать учетную запись</UIButton>
+  <div class="flex justify-center mt-[15px]">
+    <UIButton class="rounded-[6px] border-black" @click="activate"
+      >Активировать учетную запись</UIButton
+    >
+  </div>
 </template>
 
 <script lang="ts">
@@ -21,7 +25,7 @@ export default defineComponent({
   },
   methods: {
     activate() {
-      this.authStore.confirmEmail(this.token)
+      this.authStore.register(this.token)
     }
   }
 })
