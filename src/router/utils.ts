@@ -8,7 +8,7 @@ function isAuthentificated() {
 // Редирект на основную страницу приложения, иначе на экран авторизации
 export const shouldRedirectToAuthorization = (to, from, next) => {
   if (isAuthentificated()) {
-    next('/main')
+    next('/')
   } else {
     next('/auth/signin')
   }

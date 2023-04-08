@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import AuthLayoutScreen from './layouts/AuthLayoutScreen.vue'
-import SigninForm from '@/modules/auth/components/SigninForm.vue'
+import { SigninForm } from '@/modules/auth/.'
 
 export default defineComponent({
   components: { AuthLayoutScreen, SigninForm }

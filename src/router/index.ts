@@ -1,15 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { shouldRedirectToAuthorization } from './utils'
 import AuthRouter from './auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      meta: {
+        layout: 'MainLayout',
+        title: 'Главная'
+      },
       path: '/',
       name: 'home',
-      beforeEnter: shouldRedirectToAuthorization,
-      redirect: '/auth/sign-in'
+      children: [
+        {
+          path: '/catalog',
+          name: 'Каталог',
+          component: () => import('@/views/MainPage.vue')
+        }
+      ]
     },
     ...AuthRouter
   ]

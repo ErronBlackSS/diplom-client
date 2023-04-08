@@ -24,8 +24,9 @@ export default defineComponent({
     ...mapStores(useAuthStore)
   },
   methods: {
-    activate() {
-      this.authStore.register(this.token)
+    async activate() {
+      await this.authStore.register(this.token)
+      this.$router.push('/')
     }
   }
 })

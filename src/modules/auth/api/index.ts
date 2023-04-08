@@ -12,6 +12,9 @@ export async function singin(email: string, password: string): Promise<responses
   try {
     const res = await axios.post<responses.TokensResponse>('/auth/signin', { email, password })
 
+    const { access_token, refresh_token } = res.data
+
+    setUserTokens(access_token, refresh_token)
     return res.data
   } catch (error) {
     return Promise.reject(error)
