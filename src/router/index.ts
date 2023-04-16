@@ -11,6 +11,7 @@ const router = createRouter({
       },
       path: '/',
       name: 'home',
+      redirect: '/catalog',
       children: [
         {
           path: '/catalog',

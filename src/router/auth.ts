@@ -6,16 +6,6 @@ export default [
     },
     children: [
       {
-        path: 'sign-in',
-        name: 'sign-in',
-        component: () => import('@/views/SigninView.vue')
-      },
-      {
-        path: 'sign-up',
-        name: 'sign-up',
-        component: () => import('@/views/SignupView.vue')
-      },
-      {
         path: '/confirm',
         name: 'confirm',
         meta: {

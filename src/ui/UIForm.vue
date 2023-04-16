@@ -12,9 +12,6 @@
     <button class="px-[10px] py-[10px] border" type="submit">
       {{ submitText }}
     </button>
-    <div class="text-center empty:hidden">
-      <slot name="link"></slot>
-    </div>
   </form>
 </template>
 

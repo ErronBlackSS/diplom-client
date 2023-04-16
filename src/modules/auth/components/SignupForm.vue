@@ -19,10 +19,6 @@
     <div v-if="complete">
       <p class="text-green-500">Вам на почту отправлено письмо с подтверждением</p>
     </div>
-    <template #link>
-      <span className="text-gray"> Уже есть аккаунт? </span>
-      <router-link to="/auth/sign-in">Авторизоваться</router-link>
-    </template>
   </UIForm>
 </template>
 

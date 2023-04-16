@@ -1,5 +1,5 @@
 <template>
-  <UIForm submit-text="Войти" @submit="singup">
+  <UIForm submit-text="Войти" @submit="singin" :error-message="errorText">
     <FormInput
       title="Почта"
       type="email"
@@ -16,10 +16,6 @@
       input-name="email"
       v-model="password"
     />
-    <template #link>
-      <span className="text-gray"> Ещё нет аккаунта? </span>
-      <router-link to="/auth/sign-up">Зарегистрироваться</router-link>
-    </template>
   </UIForm>
 </template>
 
@@ -34,14 +30,19 @@ export default defineComponent({
   components: { FormInput, UIForm },
   data: () => ({
     email: '' as string,
-    password: '' as string
+    password: '' as string,
+    errorText: '' as string
   }),
   computed: {
     ...mapStores(useAuthStore)
   },
   methods: {
-    singup() {
-      //this.authStore.singup(this.email, this.password)
+    singin() {
+      try {
+        this.authStore.login(this.email.toLowerCase(), this.password)
+      } catch (error) {
+        if (typeof error === 'string') this.errorText = error
+      }
     }
   }
 })

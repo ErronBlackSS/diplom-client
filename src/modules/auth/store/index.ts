@@ -9,6 +9,9 @@ export const useAuthStore = defineStore('auth', {
     },
     register(token: string) {
       return Api.register(token)
+    },
+    async login(email: string, password: string) {
+      await Api.singin(email, password)
     }
   }
 })
