@@ -7,7 +7,7 @@ const router = createRouter({
     {
       meta: {
         layout: 'MainLayout',
-        title: 'Главная'
+        title: 'main'
       },
       path: '/',
       name: 'home',
@@ -15,7 +15,7 @@ const router = createRouter({
       children: [
         {
           path: '/catalog',
-          name: 'Каталог',
+          name: 'catalog',
           component: () => import('@/views/MainPage.vue')
         }
       ]

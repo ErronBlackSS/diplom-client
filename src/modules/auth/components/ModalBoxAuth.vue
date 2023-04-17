@@ -1,11 +1,13 @@
 <template>
   <ModalBox title="Авторизация" @close="close">
-    <div class="flex flex-row gap-[20px] text-[20px] mb-[15px]">
-      <p :class="!isRegister && 'text-[#A9A9A9]'" @click="switchToRegister">Регистрация</p>
-      <p :class="!isAuth && 'text-[#A9A9A9]'" @click="switchToAuth">Логин</p>
+    <div class="flex flex-col w-[500px]">
+      <div class="flex flex-row gap-[20px] text-[20px] mb-[15px] cursor-pointer">
+        <p :class="!isRegister && 'text-[#A9A9A9]'" @click="switchToRegister">Регистрация</p>
+        <p :class="!isAuth && 'text-[#A9A9A9]'" @click="switchToAuth">Логин</p>
+      </div>
+      <SigninForm v-if="isAuth" />
+      <SignupForm v-if="isRegister" />
     </div>
-    <SigninForm v-if="isAuth" />
-    <SignupForm v-if="isRegister" />
   </ModalBox>
 </template>
 

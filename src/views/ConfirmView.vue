@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue'
 import AuthLayoutScreen from './layouts/AuthLayoutScreen.vue'
 import { isUUID } from '@/helpers/functions'
-import { ConfirmAccount } from '@/modules/auth/.'
+import ConfirmAccount from '@/modules/auth/components/ConfirmAccount.vue'
 
 export default defineComponent({
   components: { AuthLayoutScreen, ConfirmAccount },

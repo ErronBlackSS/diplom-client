@@ -25,6 +25,7 @@ import FormInput from '@/ui/FormInput.vue'
 import UIForm from '@/ui/UIForm.vue'
 import { useAuthStore } from '../store'
 import { mapStores } from 'pinia'
+import { useUserStore } from '@/modules/user/store'
 
 export default defineComponent({
   components: { FormInput, UIForm },
@@ -34,12 +35,14 @@ export default defineComponent({
     errorText: '' as string
   }),
   computed: {
-    ...mapStores(useAuthStore)
+    ...mapStores(useAuthStore, useUserStore)
   },
   methods: {
-    singin() {
+    async singin() {
       try {
-        this.authStore.login(this.email.toLowerCase(), this.password)
+        await this.authStore.login(this.email.toLowerCase(), this.password)
+        this.userStore.getUserData()
+        this.$router.replace('/catalog')
       } catch (error) {
         if (typeof error === 'string') this.errorText = error
       }

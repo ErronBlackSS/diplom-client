@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div
-      class="z-50 flex items-center flex-col justify-center overflow-hidden fixed inset-0 border bg-[#000] opacity-[0.6]"
+      class="z-50 flex items-center flex-col justify-center overflow-hidden fixed inset-0 border bg-[#000] bg-opacity-25"
     >
       <div class="rounded-xl border-[2px] border-[#212022] p-[40px] bg-white z-50">
         <div class="flex gap-[8px]">

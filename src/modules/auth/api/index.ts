@@ -1,7 +1,8 @@
 import axios from '@/plugins/axios'
 import { AxiosError } from 'axios'
+import { transformAndValidate } from 'class-transformer-validator'
 import * as responses from '../models/'
-import { setUserTokens } from '../utils/auth.helpers'
+import { getUserTokens, removeUserTokens, setUserTokens } from '../utils/auth.helpers'
 import {
   USER_ALREADY_EXISTS,
   EMAIL_VERIFICATION_CONFLICT,
@@ -56,5 +57,34 @@ export async function register(token: string): Promise<responses.UserResponse> {
       }
     }
     return Promise.reject(error)
+  }
+}
+
+export async function refreshAccessToken(): Promise<responses.TokensResponse | undefined> {
+  try {
+    const data = { refreshToken: getUserTokens().refreshToken }
+    const res = await axios.get<responses.TokensResponse>('/auth/refresh', { params: data })
+    const response = await transformAndValidate(responses.TokensResponse, res.data)
+    setUserTokens(response.access_token || '', response.refresh_token || '')
+  } catch (err) {
+    return Promise.reject(err)
+  }
+}
+
+export async function signOut(userId?: number) {
+  removeUserTokens()
+
+  if (!userId) return
+
+  const { refreshToken } = getUserTokens()
+  if (!refreshToken) return
+
+  try {
+    await axios.patch('/auth/logout', {
+      refreshToken: refreshToken,
+      userId: userId
+    })
+  } catch (err) {
+    return Promise.reject(err)
   }
 }
