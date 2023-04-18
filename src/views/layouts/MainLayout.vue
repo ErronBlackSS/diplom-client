@@ -1,7 +1,7 @@
 <template>
-  <section class="flex flex-col h-screen justify-center overflow-y-auto">
+  <section class="flex flex-col justify-center overflow-y-auto">
     <MainHeader @logout="logout" :is-authenticated="isAuth" />
-    <main class="flex-1 h-fit">
+    <main class="flex flex-1 flex-col">
       <slot />
     </main>
     <MainFooter />
