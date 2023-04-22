@@ -1,7 +1,7 @@
 <template>
   <button
     class="px-[10px] py-[15px] outline-none border border-[#F1F1F1] rounded-[6px]"
-    :class="hover && hoverClass"
+    :class="!!hover && hoverClass"
     :disabled="disabled"
   >
     <slot />

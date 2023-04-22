@@ -1,9 +1,11 @@
 import { IsNumber, IsString } from 'class-validator'
 import { Type } from 'class-transformer'
+
 export class SignupResponse {
   @IsString()
   status: string
 }
+
 export class TokensResponse {
   @IsString()
   access_token: string

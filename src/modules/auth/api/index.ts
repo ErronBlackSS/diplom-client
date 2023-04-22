@@ -1,7 +1,7 @@
 import axios from '@/plugins/axios'
 import { AxiosError } from 'axios'
 import { transformAndValidate } from 'class-transformer-validator'
-import * as responses from '../models/'
+import * as responses from './models/auth.models'
 import { getUserTokens, removeUserTokens, setUserTokens } from '../utils/auth.helpers'
 import {
   USER_ALREADY_EXISTS,
