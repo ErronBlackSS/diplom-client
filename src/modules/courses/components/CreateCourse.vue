@@ -11,14 +11,18 @@
       <span v-if="errorText" class="text-red-500 text-[12px]"> {{ errorText }}</span>
     </div>
     <div>
-      <UIButton @click="createCourse"> Cоздать курс </UIButton>
+      <button
+        class="px-[20px] py-[15px] outline-none border border-[#F1F1F1] rounded-[6px]"
+        @click="createCourse"
+      >
+        Cоздать курс
+      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import UIButton from '@/ui/UIButton.vue'
 import { mapStores } from 'pinia'
 import { useCoursesStore } from '@/modules/courses/store'
 
@@ -27,7 +31,6 @@ export default defineComponent({
     courseName: '',
     errorText: ''
   }),
-  components: { UIButton },
   props: {
     showCreateFirstCourse: {
       type: Boolean,
@@ -44,7 +47,9 @@ export default defineComponent({
         return
       }
       this.errorText = ''
-      await this.coursesStore.createCourse(this.courseName)
+      await this.coursesStore
+        .createCourse(this.courseName)
+        .finally(() => this.$router.push({ name: 'teach-courses' }))
     }
   }
 })

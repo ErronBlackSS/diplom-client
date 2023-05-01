@@ -6,7 +6,8 @@ import { getUserTokens, removeUserTokens, setUserTokens } from '../utils/auth.he
 import {
   USER_ALREADY_EXISTS,
   EMAIL_VERIFICATION_CONFLICT,
-  INVALID_ACTIVATION_TOKEN
+  INVALID_ACTIVATION_TOKEN,
+  CREDENTIALS_INCORRECT
 } from '../utils/error.constants'
 
 export async function singin(email: string, password: string): Promise<responses.TokensResponse> {
@@ -18,6 +19,11 @@ export async function singin(email: string, password: string): Promise<responses
     setUserTokens(access_token, refresh_token)
     return res.data
   } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.data?.message === CREDENTIALS_INCORRECT) {
+        return Promise.reject('Неверный логин или пароль')
+      }
+    }
     return Promise.reject(error)
   }
 }

@@ -9,8 +9,8 @@
             alt="Flowbite Logo"
           />
           <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-            >EduFun</span
-          >
+            >LearnZone
+          </span>
         </a>
         <div class="flex items-center h-[30px] gap-[30px] lg:order-2">
           <template v-if="!isAuthenticated">

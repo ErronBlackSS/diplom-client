@@ -1,11 +1,14 @@
 <template>
   <div class="flex flex-row">
     <AsideMenu>
-      <AsideMenuItem to="courses">Мои курсы</AsideMenuItem>
-      <AsideMenuItem to="classes">Классы</AsideMenuItem>
-      <AsideMenuItem to="students">Мои ученики</AsideMenuItem>
+      <router-link to="/teach/courses/create">
+        <div class="p-[10px] border rounded-[6px]">Создать курс</div>
+      </router-link>
+      <AsideMenuItem to="/teach/courses">Мои курсы</AsideMenuItem>
+      <AsideMenuItem to="/teach/classes">Классы</AsideMenuItem>
+      <AsideMenuItem to="/teach/students">Мои ученики</AsideMenuItem>
     </AsideMenu>
-    <div class="grow px-[30px] pt-[30px]">
+    <div class="grow px-[60px] pt-[30px] max-w-[800px]">
       <router-view></router-view>
     </div>
   </div>

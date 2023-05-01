@@ -10,14 +10,12 @@ export default [
       {
         path: 'courses',
         name: 'teach-courses',
-        component: () => import('@/modules/courses/components/MyOwnCourses.vue'),
-        children: [
-          {
-            path: 'create',
-            name: 'create-course',
-            component: () => import('@/modules/courses/components/CreateCourse.vue')
-          }
-        ]
+        component: () => import('@/modules/courses/components/MyOwnCourses.vue')
+      },
+      {
+        path: 'courses/create',
+        name: 'create-course',
+        component: () => import('@/modules/courses/components/CreateCourse.vue')
       }
     ]
   }

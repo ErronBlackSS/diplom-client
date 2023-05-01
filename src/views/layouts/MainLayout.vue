@@ -1,6 +1,6 @@
 <template>
+  <MainHeader @logout="logout" :is-authenticated="isAuth" />
   <section class="flex flex-col justify-center overflow-y-auto">
-    <MainHeader @logout="logout" :is-authenticated="isAuth" />
     <main class="flex flex-1 flex-col">
       <slot />
     </main>
