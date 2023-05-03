@@ -1,7 +1,6 @@
 import axios from '@/plugins/axios'
 import { AxiosError } from 'axios'
 import { transformAndValidate } from 'class-transformer-validator'
-import * as responses from './models/auth.models'
 import { getUserTokens, removeUserTokens, setUserTokens } from '../utils/auth.helpers'
 import {
   USER_ALREADY_EXISTS,
@@ -9,10 +8,16 @@ import {
   INVALID_ACTIVATION_TOKEN,
   CREDENTIALS_INCORRECT
 } from '../utils/error.constants'
+import {
+  TokensResponse,
+  SignupResponse,
+  UserResponse,
+  RegisterResponse
+} from './models/auth.models'
 
-export async function singin(email: string, password: string): Promise<responses.TokensResponse> {
+export async function singin(email: string, password: string): Promise<TokensResponse> {
   try {
-    const res = await axios.post<responses.TokensResponse>('/auth/signin', { email, password })
+    const res = await axios.post<TokensResponse>('/auth/signin', { email, password })
 
     const { access_token, refresh_token } = res.data
 
@@ -28,9 +33,9 @@ export async function singin(email: string, password: string): Promise<responses
   }
 }
 
-export async function singup(email: string, password: string): Promise<responses.SignupResponse> {
+export async function singup(email: string, password: string): Promise<SignupResponse> {
   try {
-    const res = await axios.post<responses.SignupResponse>('/auth/signup', { email, password })
+    const res = await axios.post<SignupResponse>('/auth/signup', { email, password })
     return res.data
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -46,9 +51,9 @@ export async function singup(email: string, password: string): Promise<responses
   }
 }
 
-export async function register(token: string): Promise<responses.UserResponse> {
+export async function register(token: string): Promise<UserResponse> {
   try {
-    const res = await axios.post<responses.RegisterResponse>('/auth/register', { token })
+    const res = await axios.post<RegisterResponse>('/auth/register', { token })
 
     const { user, tokens } = res.data
     const { access_token, refresh_token } = tokens
@@ -66,12 +71,12 @@ export async function register(token: string): Promise<responses.UserResponse> {
   }
 }
 
-export async function refreshAccessToken(): Promise<responses.TokensResponse | undefined> {
+export async function refreshAccessToken() {
   try {
     const data = { refreshToken: getUserTokens().refreshToken }
-    const res = await axios.get<responses.TokensResponse>('/auth/refresh', { params: data })
-    const response = await transformAndValidate(responses.TokensResponse, res.data)
-    setUserTokens(response.access_token || '', response.refresh_token || '')
+    const res = await axios.get<TokensResponse>('/auth/refresh', { params: data })
+    const { access_token, refresh_token } = await transformAndValidate(TokensResponse, res.data)
+    setUserTokens(access_token || '', refresh_token || '')
   } catch (err) {
     return Promise.reject(err)
   }

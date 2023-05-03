@@ -1,15 +1,15 @@
 import axios from '@/plugins/axios'
 import { transformAndValidate } from 'class-transformer-validator'
 import { Course } from '../types/.'
-import * as responses from './models/course.models'
+import { CourseResponse, convertCourseResponseToCourse } from './models/course.models'
 
 export async function createCourse(name: string): Promise<Course> {
   try {
-    const res = await axios.post<responses.CourseResponse>('/courses', {
+    const res = await axios.post<CourseResponse>('/courses', {
       name
     })
 
-    const validatedCourse = await transformAndValidate(responses.CourseResponse, res.data)
+    const validatedCourse = await transformAndValidate(CourseResponse, res.data)
 
     return validatedCourse
   } catch (error) {
@@ -19,11 +19,11 @@ export async function createCourse(name: string): Promise<Course> {
 
 export async function getUserCourses(): Promise<Course[]> {
   try {
-    const res = await axios.get<responses.CourseResponse[]>('/courses')
+    const res = await axios.get<CourseResponse[]>('/courses')
 
-    const validatedCourses = await transformAndValidate(responses.CourseResponse, res.data)
+    const result = await transformAndValidate(CourseResponse, res.data)
 
-    return responses.convertCourseResponseToCourse(validatedCourses)
+    return convertCourseResponseToCourse(result)
   } catch (error) {
     return Promise.reject(error)
   }
