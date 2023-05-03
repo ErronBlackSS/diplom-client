@@ -15,7 +15,7 @@ export class CourseResponse {
   creatorId: number
 }
 
-export function convertFromCourceResponse(course: CourseResponse): Course {
+export function convertFromCourseResponse(course: CourseResponse): Course {
   return {
     id: course.id,
     name: course.name,
@@ -30,8 +30,8 @@ export function convertCourseResponseToCourse(
   course: CourseResponse | CourseResponse[]
 ): Course | Course[] {
   if (Array.isArray(course)) {
-    return course.map((course) => convertFromCourceResponse(course))
+    return course.map((course) => convertFromCourseResponse(course))
   }
 
-  return convertFromCourceResponse(course)
+  return convertFromCourseResponse(course)
 }

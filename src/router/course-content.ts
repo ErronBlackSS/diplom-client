@@ -2,7 +2,7 @@ export default [
   {
     path: 'course/:courseId',
     name: 'create-course-detail',
-    component: () => import('@/views/CourseEditView.vue'),
+    component: () => import('@/views/CourseContentView.vue'),
     redirect: () => {
       return { name: 'course' }
     },
@@ -10,12 +10,12 @@ export default [
       {
         path: 'overview',
         name: 'course-overview',
-        component: import('@/modules/courseEdit/components/EditCourseOverview.vue')
+        component: () => import('@/modules/courseContent/components/CourseContentOverview.vue')
       },
       {
         path: 'edit',
         name: 'course-edit',
-        component: import('@/modules/courseEdit/components/EditCourseModules.vue')
+        component: () => import('@/modules/courseContent/components/CourseContentEdit.vue')
       }
     ]
   }
