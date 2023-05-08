@@ -9,7 +9,13 @@
     </CourseContentEmpty>
     <div v-else class="grow">
       <div v-for="_module in modules" :key="_module.id">
-        <ModuleCard :name="_module.name" :order="_module.order" />
+        <ModuleCard
+          @create-lesson="createLesson"
+          :id="_module.id"
+          :lessons="_module.lessons"
+          :name="_module.name"
+          :order="_module.order"
+        />
       </div>
       <UIButton @click="createModule"> Новый модуль </UIButton>
     </div>
@@ -43,6 +49,9 @@ export default defineComponent({
   methods: {
     createModule() {
       this.courseContentStore.createModule(this.courseId, 'Новый модуль', this.modules.length)
+    },
+    createLesson(moduleId: number, name: string, order: number) {
+      this.courseContentStore.createLesson(moduleId, name, order)
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
   <button
     class="px-[20px] py-[15px] outline-none border border-[#F1F1F1] rounded-[6px]"
-    :class="!!hover && hoverClass"
+    :class="className"
     :disabled="disabled"
   >
     <slot />
@@ -26,6 +26,10 @@ export default defineComponent({
       default: ''
     },
     label: {
+      type: String,
+      default: ''
+    },
+    className: {
       type: String,
       default: ''
     }

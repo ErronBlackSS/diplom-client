@@ -6,7 +6,7 @@
       <AsideMenuItem :to="`${prefix}/overview`">Ученики</AsideMenuItem>
       <AsideMenuItem :to="`${prefix}/overview`">Настройки</AsideMenuItem>
     </AsideMenu>
-    <div class="grow px-[60px] pt-[30px] max-w-[800px]">
+    <div class="grow px-[60px] pt-[30px]">
       <router-view></router-view>
     </div>
   </div>

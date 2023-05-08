@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer'
 import { IsString, IsNumber, IsArray, ValidateNested } from 'class-validator'
+import { LessonResponse } from './lessons.models'
 
 export class CreateModuleDto {
   @IsString()
@@ -24,6 +25,11 @@ class ModuleResponse {
 
   @IsNumber()
   order: number
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => LessonResponse)
+  lessons: LessonResponse[]
 }
 
 export class getCourseContentResponse {
