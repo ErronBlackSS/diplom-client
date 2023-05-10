@@ -6,7 +6,12 @@
     </div>
     <CustomInput placeholder="Описание" />
     <div class="border w-full p-[30px]">
-      <ModuleLessonsDragList :lessons="lessons" />
+      <ModuleLessonsDragList
+        :module-id="id"
+        :module-order="order"
+        @change-lesson-order="changeLessonOrder"
+        :lessons="lessons"
+      />
       <div class="flex flex-row items-center gap-[20px]">
         <CustomInput :class-name="'w-[80%]'" v-model="lessonName" placeholder="Название урока" />
         <UIButton
@@ -55,7 +60,7 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['createLesson'],
+  emits: ['createLesson', 'changeLessonOrder'],
   mounted() {
     this.inputName = this.name
   },
@@ -65,6 +70,9 @@ export default defineComponent({
     }, 3000),
     createLesson() {
       this.$emit('createLesson', this.id, this.lessonName, 0)
+    },
+    changeLessonOrder(moduleId: number, lessonId: number, newOrder: number) {
+      this.$emit('changeLessonOrder', moduleId, lessonId, newOrder)
     }
   }
 })

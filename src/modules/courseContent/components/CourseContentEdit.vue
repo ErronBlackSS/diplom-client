@@ -8,9 +8,11 @@
       </template>
     </CourseContentEmpty>
     <div v-else class="grow">
-      <div v-for="_module in modules" :key="_module.id">
+      <div v-for="(_module, index) in modules" :key="_module.id">
         <ModuleCard
           @create-lesson="createLesson"
+          @change-lesson-order="changeLessonOrder"
+          :module-index="index"
           :id="_module.id"
           :lessons="_module.lessons"
           :name="_module.name"
@@ -52,6 +54,9 @@ export default defineComponent({
     },
     createLesson(moduleId: number, name: string, order: number) {
       this.courseContentStore.createLesson(moduleId, name, order)
+    },
+    changeLessonOrder(moduleId: number, lessonId: number, newOrder: number) {
+      this.courseContentStore.changeLessonOrder(moduleId, lessonId, newOrder)
     }
   }
 })
