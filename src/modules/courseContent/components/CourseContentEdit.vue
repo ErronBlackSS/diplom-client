@@ -1,13 +1,13 @@
 <template>
-  <div class="flex flex-col gap-[40px]">
-    <ViewTitle title="Редактирование курса" />
+  <ViewWrapper>
+    <ViewTitle class="mt-[30px]" title="Редактирование курса" />
     <CourseContentEmpty v-if="emptyModules">
       <p>В курсе пока нет ни одного модуля</p>
       <template #footer>
         <UIButton @click="createModule"> Создать модуль </UIButton>
       </template>
     </CourseContentEmpty>
-    <div v-else class="grow">
+    <div v-else class="grow mt-[40px]">
       <div v-for="(_module, index) in modules" :key="_module.id">
         <ModuleCard
           @create-lesson="createLesson"
@@ -21,7 +21,7 @@
       </div>
       <UIButton @click="createModule"> Новый модуль </UIButton>
     </div>
-  </div>
+  </ViewWrapper>
 </template>
 
 <script lang="ts">
@@ -33,9 +33,10 @@ import { useCourseContentStore } from '../store/.'
 import { Module } from '../types'
 import CourseContentEmpty from './CourseContentEmpty.vue'
 import ModuleCard from './module/ModuleCard.vue'
+import ViewWrapper from '@/components/ViewWrapper.vue'
 
 export default defineComponent({
-  components: { ViewTitle, UIButton, CourseContentEmpty, ModuleCard },
+  components: { ViewTitle, ViewWrapper, UIButton, CourseContentEmpty, ModuleCard },
   computed: {
     ...mapStores(useCourseContentStore),
     modules(): Module[] {

@@ -17,4 +17,9 @@
     scrollbar-width: thin;
     scrollbar-color: #9ca3af #e5e7eb;
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: 0px;
+  }
 }
