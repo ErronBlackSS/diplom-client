@@ -1,6 +1,6 @@
 <template>
   <draggable
-    :list="orderedLessons"
+    :list="lessons"
     :fallback-tolerance="1"
     :force-fallback="true"
     :animation="180"
@@ -9,7 +9,12 @@
     @update="onChangeLessonOrder"
   >
     <template #item="{ element, index }">
-      <div class="border p-[15px]">{{ `${moduleOrder}.${index + 1}` }} {{ element.name }}</div>
+      <div
+        class="border p-[15px] flex flex-row justify-between cursor-pointer group hover:border-black"
+      >
+        <div>{{ `${moduleOrder}.${index + 1}` }} {{ element.name }}</div>
+        <div @click="gotoLesson(element.id)" class="hidden group-hover:block">Перейти к уроку</div>
+      </div>
     </template>
   </draggable>
 </template>
@@ -41,37 +46,29 @@ export default defineComponent({
     }
   },
   emits: ['changeLessonOrder'],
-  computed: {
-    orderedLessons() {
-      console.log(this.lessons, 'recompute')
-      const orderedLessons = this.lessons
-      return orderedLessons.sort((a, b) => a.order - b.order)
-    }
-  },
   methods: {
     onChangeLessonOrder(lesson: LessonWithIndexes) {
       const newLessonIndex = Number(lesson.newIndex)
       const oldLessonIndex = Number(lesson.oldIndex)
 
-      const id = this.orderedLessons[oldLessonIndex].id
+      const id = this.lessons[oldLessonIndex].id
 
       let newOrder
       if (newLessonIndex === 0) {
-        newOrder = this.orderedLessons[newLessonIndex].order - 0.5
-      } else if (newLessonIndex === this.orderedLessons.length - 1) {
-        newOrder = this.orderedLessons[newLessonIndex].order + 0.5
+        newOrder = this.lessons[newLessonIndex].order - 0.5
+      } else if (newLessonIndex === this.lessons.length - 1) {
+        newOrder = this.lessons[newLessonIndex].order + 0.5
       } else if (oldLessonIndex > newLessonIndex) {
-        newOrder =
-          (this.orderedLessons[newLessonIndex].order +
-            this.orderedLessons[newLessonIndex - 1].order) /
-          2
+        newOrder = (this.lessons[newLessonIndex].order + this.lessons[newLessonIndex - 1].order) / 2
       } else {
-        newOrder =
-          (this.orderedLessons[newLessonIndex].order +
-            this.orderedLessons[newLessonIndex + 1].order) /
-          2
+        newOrder = (this.lessons[newLessonIndex].order + this.lessons[newLessonIndex + 1].order) / 2
       }
       this.$emit('changeLessonOrder', this.moduleId, id, newOrder)
+    },
+    gotoLesson(id: number) {
+      this.$router.push({
+        path: `/edit-lesson/${id}`
+      })
     }
   }
 })

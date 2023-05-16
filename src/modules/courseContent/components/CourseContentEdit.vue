@@ -7,18 +7,17 @@
         <UIButton @click="createModule"> Создать модуль </UIButton>
       </template>
     </CourseContentEmpty>
-    <div v-else class="grow mt-[40px]">
-      <div v-for="(_module, index) in modules" :key="_module.id">
-        <ModuleCard
-          @create-lesson="createLesson"
-          @change-lesson-order="changeLessonOrder"
-          :module-index="index"
-          :id="_module.id"
-          :lessons="_module.lessons"
-          :name="_module.name"
-          :order="_module.order"
-        />
-      </div>
+    <div v-else class="grow my-[40px]">
+      <ModuleCard
+        v-for="(_module, index) in modules"
+        :key="_module.id"
+        @create-lesson="createLesson"
+        @change-lesson-order="changeLessonOrder"
+        @change-module-name="changeModuleName"
+        @change-module-description="changeModuleDescription"
+        :module-index="index + 1"
+        :module="_module"
+      />
       <UIButton @click="createModule"> Новый модуль </UIButton>
     </div>
   </ViewWrapper>
@@ -34,6 +33,7 @@ import { Module } from '../types'
 import CourseContentEmpty from './CourseContentEmpty.vue'
 import ModuleCard from './module/ModuleCard.vue'
 import ViewWrapper from '@/components/ViewWrapper.vue'
+import { saveNotify } from '@/helpers/notifications'
 
 export default defineComponent({
   components: { ViewTitle, ViewWrapper, UIButton, CourseContentEmpty, ModuleCard },
@@ -51,13 +51,21 @@ export default defineComponent({
   },
   methods: {
     createModule() {
-      this.courseContentStore.createModule(this.courseId, 'Новый модуль', this.modules.length)
+      this.courseContentStore.createModule(this.courseId, 'Новый модуль', this.modules.length + 1)
     },
     createLesson(moduleId: number, name: string, order: number) {
       this.courseContentStore.createLesson(moduleId, name, order)
     },
     changeLessonOrder(moduleId: number, lessonId: number, newOrder: number) {
       this.courseContentStore.changeLessonOrder(moduleId, lessonId, newOrder)
+    },
+    async changeModuleName(moduleId: number, newName: string) {
+      await this.courseContentStore.changeModuleName(moduleId, newName)
+      saveNotify('Название модуля сохранено!')
+    },
+    async changeModuleDescription(moduleId: number, newDescription: string) {
+      await this.courseContentStore.changeModuleDescription(moduleId, newDescription)
+      saveNotify('Описание модуля сохранено!')
     }
   }
 })

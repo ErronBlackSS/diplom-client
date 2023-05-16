@@ -6,9 +6,9 @@ import { CourseContent, Module } from '../types'
 import { convertFromLessonResponse, CreateLessonDto, LessonResponse } from './models/lessons.models'
 import { CreateModuleDto, getCourseContentResponse } from './models/module.models'
 
-export async function createModule(courseId: number, data: CreateModuleDto): Promise<Module> {
+export async function createModule(data: CreateModuleDto): Promise<Module> {
   try {
-    const res = await axios.post(`courses/${courseId}/module`, data)
+    const res = await axios.post(`module/create`, data)
     return res.data
   } catch (error) {
     return Promise.reject(error)
@@ -37,9 +37,9 @@ export async function getCourseContent(courseId: number): Promise<CourseContent>
   }
 }
 
-export async function createLesson(moduleId: number, data: CreateLessonDto) {
+export async function createLesson(data: CreateLessonDto) {
   try {
-    const res = await axios.post<LessonResponse>(`modules/${moduleId}/lessons`, data)
+    const res = await axios.post<LessonResponse>(`lessons/create`, data)
 
     const result = await transformAndValidate(LessonResponse, res.data)
 
@@ -52,9 +52,9 @@ export async function createLesson(moduleId: number, data: CreateLessonDto) {
   }
 }
 
-export async function changeLessonOrder(moduleId: number, lessonId: number, newOrder: number) {
+export async function changeLessonOrder(lessonId: number, newOrder: number) {
   try {
-    const res = await axios.patch<LessonResponse>(`modules/${moduleId}/lessons/${lessonId}/order`, {
+    const res = await axios.patch<LessonResponse>(`/lessons/${lessonId}/order`, {
       order: convertToOrderRequest(newOrder)
     })
 
@@ -63,6 +63,16 @@ export async function changeLessonOrder(moduleId: number, lessonId: number, newO
     if (error instanceof Array && error.length) {
       throw new ResponseValidateError(new Error(error.toString()))
     }
+    return Promise.reject(error)
+  }
+}
+
+export async function updateModule(moduleId: number, data: Partial<Module>) {
+  try {
+    const res = await axios.patch(`modules/${moduleId}/update`, data)
+
+    return res.data
+  } catch (error) {
     return Promise.reject(error)
   }
 }

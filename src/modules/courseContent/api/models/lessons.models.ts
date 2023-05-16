@@ -21,6 +21,9 @@ export class CreateLessonDto {
   name: string
 
   @IsNumber()
+  moduleId: number
+
+  @IsNumber()
   order: number
 }
 

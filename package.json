@@ -17,6 +17,7 @@
     "class-transformer-validator": "^0.9.1",
     "class-validator": "^0.14.0",
     "element-plus": "^2.3.4",
+    "lottie-web-vue": "^2.0.6",
     "pinia": "^2.0.32",
     "reflect-metadata": "^0.1.13",
     "tailwindcss": "^3.2.7",

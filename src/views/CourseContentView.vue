@@ -7,7 +7,8 @@
       <AsideMenuItem :to="`${prefix}/overview`">Настройки</AsideMenuItem>
     </AsideMenu>
     <div class="grow px-[60px]">
-      <router-view></router-view>
+      <MainLoader v-if="isLoading" />
+      <router-view v-else></router-view>
     </div>
   </div>
 </template>
@@ -18,9 +19,13 @@ import AsideMenu from '@/components/AsideMenu/AsideMenu.vue'
 import AsideMenuItem from '@/components/AsideMenu/AsideMenuItem.vue'
 import { mapStores } from 'pinia'
 import { useCourseContentStore } from '@/modules/courseContent/store'
+import MainLoader from '@/components/MainLoader.vue'
 
 export default defineComponent({
-  components: { AsideMenu, AsideMenuItem },
+  data: () => ({
+    isLoading: true
+  }),
+  components: { AsideMenu, AsideMenuItem, MainLoader },
   computed: {
     ...mapStores(useCourseContentStore),
     courseId() {
@@ -36,7 +41,11 @@ export default defineComponent({
   },
   methods: {
     async loadCourseContent(courseId: number) {
-      await this.courseContentStore.getCourseContent(courseId)
+      try {
+        await this.courseContentStore.getCourseContent(courseId)
+      } finally {
+        this.isLoading = false
+      }
     }
   }
 })

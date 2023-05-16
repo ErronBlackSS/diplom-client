@@ -1,5 +1,5 @@
 <template>
-  <router-link :class="selectedClass" :to="to">
+  <router-link :class="{ 'text-primary': isSelected }" :to="to">
     <slot></slot>
   </router-link>
 </template>
@@ -13,14 +13,14 @@ export default defineComponent({
       type: String,
       required: true
     },
-    selected: {
-      type: Boolean,
-      default: false
+    selectPattern: {
+      type: String,
+      default: ''
     }
   },
   computed: {
-    selectedClass() {
-      return this.selected && 'text-[#008080]'
+    isSelected(): boolean {
+      return !!this.$route?.path?.includes(this.to)
     }
   }
 })

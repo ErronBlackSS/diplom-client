@@ -2,8 +2,10 @@
   <input
     v-model="inputValue"
     @input="$emit('input')"
+    @blur="$emit('blur')"
+    @keyup.enter="$emit('enter')"
     :placeholder="placeholder"
-    class="h-[42px] overflow-hidden flex gap-[12px] items-center px-[14px] box-border border border-[#212022]/[.12] outline-none rounded-[6px] justify-between"
+    class="h-[42px] overflow-hidden flex gap-[12px] items-center px-[14px] box-border border border-[#212022]/[.12] focus:border-[#444444] outline-none rounded-[6px] justify-between"
     :class="className"
   />
 </template>
@@ -26,7 +28,7 @@ export default defineComponent({
       default: ''
     }
   },
-  emits: ['change', 'update:modelValue', 'input'],
+  emits: ['change', 'update:modelValue', 'input', 'blur', 'enter'],
   computed: {
     inputValue: {
       get() {

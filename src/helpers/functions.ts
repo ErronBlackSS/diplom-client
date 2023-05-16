@@ -16,15 +16,20 @@ export function convertFromOrderResponse(order: number): number {
   return Number(order) / 1000000
 }
 
-export function debounce<T extends (...args: unknown[]) => void>(fn: T, wait: number) {
+export const debounce = function debounce<T extends (...args: unknown[]) => void>(
+  fn: T,
+  wait: number
+) {
   let timer: ReturnType<typeof setTimeout> | null = null
 
-  return function (...args: Parameters<T>) {
+  return function (this: unknown, ...args: Parameters<T>) {
     if (timer) {
       window.clearTimeout(timer)
     }
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this
     timer = window.setTimeout(() => {
-      fn.call(args)
+      fn.call(context, args)
     }, wait)
   }
 }

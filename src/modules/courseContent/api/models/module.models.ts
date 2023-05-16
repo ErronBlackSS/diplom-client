@@ -7,6 +7,9 @@ export class CreateModuleDto {
   name: string
 
   @IsNumber()
+  courseId: number
+
+  @IsNumber()
   order: number
 }
 

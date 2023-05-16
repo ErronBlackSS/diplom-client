@@ -27,7 +27,7 @@ export const useCourseContentStore = defineStore('courseContent', {
   },
   actions: {
     async createModule(courseId: number, name: string, order: number) {
-      const module = await Api.createModule(courseId, { name: name, order: order })
+      const module = await Api.createModule({ name, courseId, order })
       this.modules.push(module)
     },
     async getCourseContent(courseId: number) {
@@ -35,13 +35,13 @@ export const useCourseContentStore = defineStore('courseContent', {
       this.modules = courseContent.modules
     },
     async createLesson(moduleId: number, name: string, order: number) {
-      const lesson = await Api.createLesson(moduleId, { name, order })
+      const lesson = await Api.createLesson({ name, moduleId, order })
       const module = this.modules.find((mod) => mod.id === moduleId)
 
       if (module) module.lessons.push(lesson)
     },
     async changeLessonOrder(moduleId: number, lessonId: number, newOrder: number) {
-      await Api.changeLessonOrder(moduleId, lessonId, newOrder)
+      await Api.changeLessonOrder(lessonId, newOrder)
 
       const curModuleId = this.modules.findIndex((mod) => mod.id === moduleId)
       if (curModuleId === -1) return
@@ -50,6 +50,20 @@ export const useCourseContentStore = defineStore('courseContent', {
       if (curLessonId === -1) return
 
       this.modules[curModuleId].lessons[curLessonId].order = newOrder
+    },
+    async changeModuleName(moduleId: number, name: string) {
+      await Api.updateModule(moduleId, { name })
+      const curModuleId = this.modules.findIndex((mod) => mod.id === moduleId)
+      if (curModuleId === -1) return
+
+      this.modules[curModuleId].name = name
+    },
+    async changeModuleDescription(moduleId: number, newDescription: string) {
+      await Api.updateModule(moduleId, { description: newDescription })
+      const curModuleId = this.modules.findIndex((mod) => mod.id === moduleId)
+      if (curModuleId === -1) return
+
+      this.modules[curModuleId].description = newDescription
     }
   }
 })
