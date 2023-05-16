@@ -1,16 +1,13 @@
 export default [
   {
-    path: 'edit-lesson/:lessonId',
+    path: '/edit-lesson/:moduleId',
     name: 'edit-lesson',
     component: () => import('@/views/EditLessonView.vue'),
-    redirect: () => {
-      return { name: 'course' }
-    },
     children: [
       {
-        path: 'step',
-        name: 'step',
-        component: () => import('@/modules/courseContent/components/CourseContentOverview.vue')
+        path: ':lessonId',
+        name: 'lesson',
+        component: () => import('@/modules/editLesson/components/EditLessonStep.vue')
       }
     ]
   }

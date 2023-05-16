@@ -67,7 +67,7 @@ export default defineComponent({
     },
     gotoLesson(id: number) {
       this.$router.push({
-        path: `/edit-lesson/${id}`
+        path: `/edit-lesson/${this.moduleId}/${id}`
       })
     }
   }

@@ -3,6 +3,7 @@ import AuthRouter from './auth'
 import LearnRouter from './learn'
 import TeachRouter from './teach'
 import CourseContentRouter from './course-content'
+import EditLessonRouter from './edit-lesson'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,7 +24,8 @@ const router = createRouter({
         },
         ...LearnRouter,
         ...TeachRouter,
-        ...CourseContentRouter
+        ...CourseContentRouter,
+        ...EditLessonRouter
       ]
     },
     ...AuthRouter

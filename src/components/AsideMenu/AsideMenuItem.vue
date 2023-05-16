@@ -1,5 +1,5 @@
 <template>
-  <router-link :class="{ 'text-primary': isSelected }" :to="to">
+  <router-link :class="{ 'text-[#CCCCCC]': isSelected }" :to="to">
     <slot></slot>
   </router-link>
 </template>
