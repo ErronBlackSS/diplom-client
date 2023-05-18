@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen overflow-y-scroll overflow-auto [&::-webkit-scrollbar]:hidden">
+  <div class="h-screen overflow-y-scroll overflow-auto py-[30px] [&::-webkit-scrollbar]:hidden">
     <slot />
   </div>
 </template>

@@ -3,6 +3,10 @@ import { Lesson } from '@/modules/courseContent/types/lessons'
 export type Step = {
   id: number
   type: StepType
+}
+
+export type StepContent = {
+  stepId: number
   content: string
   test: Test | undefined
 }
@@ -20,6 +24,9 @@ export type TestAnswer = {
   testId: number
 }
 
-export type StepType = 'TEXT' | 'TEST'
+export enum StepType {
+  TEST = 'TEST',
+  TEXT = 'TEXT'
+}
 
 export type LessonWithSteps = Lesson & { steps: Step[] }

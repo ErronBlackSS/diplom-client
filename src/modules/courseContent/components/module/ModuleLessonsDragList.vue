@@ -10,10 +10,20 @@
   >
     <template #item="{ element, index }">
       <div
-        class="border p-[15px] flex flex-row justify-between cursor-pointer group hover:border-black"
+        class="border p-[15px] flex flex-row justify-between items-center cursor-pointer group hover:border-black"
       >
-        <div>{{ `${moduleOrder}.${index + 1}` }} {{ element.name }}</div>
-        <div @click="gotoLesson(element.id)" class="hidden group-hover:block">Перейти к уроку</div>
+        <div class="grow">{{ `${moduleOrder}.${index + 1}` }} {{ element.name }}</div>
+        <div class="flex flex-row justify-center items-center gap-[15px]">
+          <div
+            class="bg-[#F5F5F5] rounded-[6px] px-[10px] py-[7px] border hover:border-[#1d2f5d]"
+            @click="gotoLesson(element.id)"
+          >
+            Перейти к уроку
+          </div>
+          <div @click="deleteLesson(element.id)" class="hover:bg-[#F5F5F5] rounded-[6px] p-[5px]">
+            <DeleteIcon />
+          </div>
+        </div>
       </div>
     </template>
   </draggable>
@@ -23,6 +33,7 @@
 import { defineComponent, PropType } from 'vue'
 import draggable from 'vuedraggable'
 import { Lesson } from '../../types/lessons'
+import DeleteIcon from '@/components/Icons/DeleteIcon.vue'
 
 interface LessonWithIndexes extends Lesson {
   newIndex: number
@@ -30,7 +41,7 @@ interface LessonWithIndexes extends Lesson {
 }
 
 export default defineComponent({
-  components: { draggable },
+  components: { draggable, DeleteIcon },
   props: {
     lessons: {
       type: Array as PropType<Lesson[]>,
@@ -45,7 +56,7 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['changeLessonOrder'],
+  emits: ['changeLessonOrder', 'deleteLesson'],
   methods: {
     onChangeLessonOrder(lesson: LessonWithIndexes) {
       const newLessonIndex = Number(lesson.newIndex)
@@ -69,6 +80,9 @@ export default defineComponent({
       this.$router.push({
         path: `/edit-lesson/${this.moduleId}/${id}`
       })
+    },
+    deleteLesson(lessonId: number) {
+      this.$emit('deleteLesson', this.moduleId, lessonId)
     }
   }
 })

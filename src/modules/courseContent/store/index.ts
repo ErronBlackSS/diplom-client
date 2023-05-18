@@ -58,12 +58,22 @@ export const useCourseContentStore = defineStore('courseContent', {
 
       this.modules[curModuleId].name = name
     },
-    async changeModuleDescription(moduleId: number, newDescription: string) {
-      await Api.updateModule(moduleId, { description: newDescription })
+    async changeModuleDescription(moduleId: number, description: string) {
+      await Api.updateModule(moduleId, { description })
       const curModuleId = this.modules.findIndex((mod) => mod.id === moduleId)
       if (curModuleId === -1) return
 
-      this.modules[curModuleId].description = newDescription
+      this.modules[curModuleId].description = description
+    },
+    async deleteLesson(moduleId: number, lessonId: number) {
+      await Api.deleteLesson(lessonId)
+
+      const curModuleId = this.modules.findIndex((mod) => mod.id === moduleId)
+      if (curModuleId === -1) return
+
+      this.modules[curModuleId].lessons = this.modules[curModuleId].lessons.filter(
+        (lesson) => lesson.id !== lessonId
+      )
     }
   }
 })

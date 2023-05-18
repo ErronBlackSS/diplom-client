@@ -1,6 +1,6 @@
 <template>
   <ViewWrapper>
-    <ViewTitle class="mt-[30px]" title="Программа курса" />
+    <ViewTitle title="Программа курса" />
     <div class="flex-none">
       <UIButton @click="gotoEdit"> Редактировать содержание </UIButton>
     </div>

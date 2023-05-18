@@ -52,7 +52,6 @@ export default defineComponent({
     }
   },
   async mounted() {
-    console.log(this.$route)
     if (!this.moduleId) return
     await this.loadLessonsWithSteps(this.moduleId)
   },

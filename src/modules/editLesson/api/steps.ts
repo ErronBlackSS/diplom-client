@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '@/plugins/axios'
 import { transformAndValidate } from 'class-transformer-validator'
 import { Step, StepType } from '../types/lessons-with-steps'
 import { StepResponse } from './models/lessons-with-steps.models'

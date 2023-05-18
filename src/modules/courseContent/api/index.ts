@@ -76,3 +76,13 @@ export async function updateModule(moduleId: number, data: Partial<Module>) {
     return Promise.reject(error)
   }
 }
+
+export async function deleteLesson(lessonId: number) {
+  try {
+    const res = await axios.delete(`/lessons/${lessonId}/delete`)
+
+    return res.data
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}

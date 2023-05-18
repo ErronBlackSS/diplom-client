@@ -20,10 +20,16 @@
         :module-id="id"
         :module-order="moduleIndex"
         @change-lesson-order="changeLessonOrder"
+        @delete-lesson="deleteLesson"
         :lessons="lessons"
       />
       <div class="flex flex-row items-center gap-[20px]">
-        <CustomInput :class-name="'w-[80%]'" v-model="lessonName" placeholder="Название урока" />
+        <CustomInput
+          @enter="createLesson"
+          :class-name="'w-[80%]'"
+          v-model="lessonName"
+          placeholder="Название урока"
+        />
         <UIButton
           :class-name="'flex-none !w-[150px]'"
           :disabled="!lessonName"
@@ -62,7 +68,13 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['createLesson', 'changeLessonOrder', 'changeModuleName', 'changeModuleDescription'],
+  emits: [
+    'createLesson',
+    'changeLessonOrder',
+    'changeModuleName',
+    'changeModuleDescription',
+    'deleteLesson'
+  ],
   computed: {
     id(): number {
       return this.module.id
@@ -98,9 +110,13 @@ export default defineComponent({
     },
     createLesson() {
       this.$emit('createLesson', this.id, this.lessonName, 0)
+      this.lessonName = ''
     },
     changeLessonOrder(moduleId: number, lessonId: number, newOrder: number) {
       this.$emit('changeLessonOrder', moduleId, lessonId, newOrder)
+    },
+    deleteLesson(moduleId: number, lessonId: number) {
+      this.$emit('deleteLesson', moduleId, lessonId)
     }
   }
 })

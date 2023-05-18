@@ -1,13 +1,13 @@
 <template>
   <ViewWrapper>
-    <ViewTitle class="mt-[30px]" title="Редактирование курса" />
+    <ViewTitle title="Редактирование курса" />
     <CourseContentEmpty v-if="emptyModules">
       <p>В курсе пока нет ни одного модуля</p>
       <template #footer>
         <UIButton @click="createModule"> Создать модуль </UIButton>
       </template>
     </CourseContentEmpty>
-    <div v-else class="grow my-[40px]">
+    <div v-else class="grow mt-[40px]">
       <ModuleCard
         v-for="(_module, index) in modules"
         :key="_module.id"
@@ -15,6 +15,7 @@
         @change-lesson-order="changeLessonOrder"
         @change-module-name="changeModuleName"
         @change-module-description="changeModuleDescription"
+        @delete-lesson="deleteLesson"
         :module-index="index + 1"
         :module="_module"
       />
@@ -67,6 +68,9 @@ export default defineComponent({
     async changeModuleDescription(moduleId: number, newDescription: string) {
       await this.courseContentStore.changeModuleDescription(moduleId, newDescription)
       saveNotify('Описание модуля сохранено!')
+    },
+    async deleteLesson(moduleId: number, lessonId: number) {
+      await this.courseContentStore.deleteLesson(moduleId, lessonId)
     }
   }
 })
