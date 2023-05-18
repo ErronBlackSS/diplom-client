@@ -3,8 +3,8 @@
     <AsideMenu>
       <AsideMenuItem :to="`${prefix}/overview`">Содержание</AsideMenuItem>
       <AsideMenuItem :to="`${prefix}/edit`">Редактировать</AsideMenuItem>
-      <AsideMenuItem :to="`${prefix}/overview`">Ученики</AsideMenuItem>
-      <AsideMenuItem :to="`${prefix}/overview`">Настройки</AsideMenuItem>
+      <AsideMenuItem :to="`${prefix}/students`">Ученики</AsideMenuItem>
+      <AsideMenuItem :to="`${prefix}/settings`">Настройки</AsideMenuItem>
     </AsideMenu>
     <div class="grow px-[60px]">
       <MainLoader v-if="isLoading" />

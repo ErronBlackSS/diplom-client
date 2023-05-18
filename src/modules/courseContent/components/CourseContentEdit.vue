@@ -34,11 +34,12 @@ import CourseContentEmpty from './CourseContentEmpty.vue'
 import ModuleCard from './module/ModuleCard.vue'
 import ViewWrapper from '@/components/ViewWrapper.vue'
 import { saveNotify } from '@/helpers/notifications'
+import { useEditLessonStore } from '@/modules/editLesson/store'
 
 export default defineComponent({
   components: { ViewTitle, ViewWrapper, UIButton, CourseContentEmpty, ModuleCard },
   computed: {
-    ...mapStores(useCourseContentStore),
+    ...mapStores(useCourseContentStore, useEditLessonStore),
     modules(): Module[] {
       return this.courseContentStore.modules
     },

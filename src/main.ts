@@ -11,6 +11,21 @@ import ExamPointIcon from './components/Icons/ExamPointIcon.vue'
 
 const app = createApp(App)
 
+router.beforeEach((to, from, next) => {
+  const title = to.meta?.title as string
+
+  const titleFromParam = to.params?.pageTitle
+  if (title) {
+    document.title = title
+  }
+
+  if (titleFromParam) {
+    document.title = `${titleFromParam} - ${title}`
+  }
+
+  next()
+})
+
 window.addEventListener('unhandledrejection', (event) => {
   if (event.reason.isAxiosError) {
     const errorMessage =

@@ -1,3 +1,5 @@
+import { shouldRedirectToMain } from './utils'
+
 export default [
   {
     path: '/teach',
@@ -6,6 +8,7 @@ export default [
     redirect: () => {
       return { name: 'teach-courses' }
     },
+    beforeEnter: shouldRedirectToMain,
     children: [
       {
         path: 'courses',

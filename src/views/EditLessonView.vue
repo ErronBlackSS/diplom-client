@@ -1,16 +1,16 @@
 <template>
   <MainLoader class="!h-screen" v-if="isLoading" />
   <div v-else class="flex flex-row">
-    <AsideMenu :width="230" :background-color="`#1d2f5d`">
-      <div class="text-[#FFF]">{{ moduleName }}</div>
+    <AsideMenu :width="230">
+      <div class="text-[18px] text-[#1d2f5d] font-[500]">{{ moduleName }}</div>
       <div class="ml-[15px] flex flex-col gap-[10px]">
         <AsideMenuItem
-          class="text-[#FFF] w-full"
-          v-for="lesson in lessons"
+          class="w-full"
+          v-for="(lesson, index) in lessons"
           :key="lesson.id"
           :to="`${prefix}/${lesson.id}`"
         >
-          {{ lesson.name }}
+          {{ index + 1 }}. {{ lesson.name }}
         </AsideMenuItem>
       </div>
     </AsideMenu>

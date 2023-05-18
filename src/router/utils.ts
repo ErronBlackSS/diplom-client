@@ -1,13 +1,17 @@
-// Тут будут различные middlewares, guards и другие вспомогательные функции для построение роутинга
+import { isAuthenticated } from '@/modules/auth/utils/auth.helpers'
 
-function isAuthentificated() {
-  return false
+export const shouldRedirectToMain = (to, from, next) => {
+  if (isAuthenticated()) {
+    next()
+  } else {
+    next('/catalog')
+  }
 }
 
 // Функция будет проверять авторизрван пользователь или нет, в случае успеха
 // Редирект на основную страницу приложения, иначе на экран авторизации
 export const shouldRedirectToAuthorization = (to, from, next) => {
-  if (isAuthentificated()) {
+  if (isAuthenticated()) {
     next('/')
   } else {
     next('/auth/signin')

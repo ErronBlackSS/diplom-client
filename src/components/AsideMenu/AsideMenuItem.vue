@@ -1,5 +1,5 @@
 <template>
-  <router-link :class="{ 'text-[#CCCCCC]': isSelected }" :to="to">
+  <router-link :class="{ 'text-[#1d2f5d] font-[500]': isSelected }" :to="to">
     <slot></slot>
   </router-link>
 </template>

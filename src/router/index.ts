@@ -20,6 +20,9 @@ const router = createRouter({
         {
           path: '/catalog',
           name: 'catalog',
+          meta: {
+            title: 'Каталог'
+          },
           component: () => import('@/views/MainPage.vue')
         },
         ...LearnRouter,
