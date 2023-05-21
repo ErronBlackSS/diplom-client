@@ -2,7 +2,7 @@
   <MainLoader v-if="isLoading" />
   <ViewWrapper class="!my-[30px] !py-[0px] w-full" v-else>
     <ContentEditor v-model="stepTextContent" @save="saveStepContent" />
-    <DeviderHorizonalLine v-if="isTest" />
+    <DeviderHorizonalLine />
     <StepTest
       class="py-[15px]"
       v-if="isTest && test"
@@ -10,6 +10,8 @@
       @add-answer="addAnswer"
       @set-right-answer="setRightAnswer"
       @change-answer-order="changeOrder"
+      @delete-answer="deleteAnswer"
+      @change-answer-text="changeAnswerText"
     />
   </ViewWrapper>
 </template>
@@ -93,6 +95,12 @@ export default defineComponent({
     },
     async changeOrder(answerId: number, order: number) {
       await this.stepContentStore.changeAnswerOrder(this.lessonId, this.stepId, answerId, order)
+    },
+    async deleteAnswer(answerId: number) {
+      await this.stepContentStore.deleteAnswer(this.lessonId, this.stepId, answerId)
+    },
+    async changeAnswerText(answerId: number, name: string) {
+      await this.stepContentStore.changeAnswerText(this.lessonId, this.stepId, answerId, name)
     }
   }
 })

@@ -35,6 +35,9 @@ export default defineComponent({
     },
     steps(): Step[] {
       return this.stepsStore.steps
+    },
+    stepId(): number | undefined {
+      return Number(this.$route.params.stepId)
     }
   },
   watch: {
@@ -54,6 +57,13 @@ export default defineComponent({
         await this.stepsStore.getLessonSteps(lessonId)
       } finally {
         this.isLoading = false
+        this.gotoStep()
+      }
+    },
+    gotoStep() {
+      if (this.stepId) {
+        this.$router.push({ name: 'step', params: { stepId: this.stepId } })
+      } else {
         const firstStep = this.steps.at(0) || undefined
         if (firstStep) {
           this.$router.push({ name: 'step', params: { stepId: firstStep.id } })

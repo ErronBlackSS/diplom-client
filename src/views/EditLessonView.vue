@@ -14,7 +14,7 @@
         </AsideMenuItem>
       </div>
     </AsideMenu>
-    <div class="grow px-[60px]">
+    <div class="grow px-[60px] w-full">
       <router-view></router-view>
     </div>
   </div>

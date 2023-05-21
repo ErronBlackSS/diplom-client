@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="w-full h-[50px] md:h-screen scroll-style flex flex-row md:flex-col gap-[20px] px-[22px] py-[24px] border-t"
+    class="h-[50px] md:h-screen scroll-style flex flex-row md:flex-col gap-[20px] px-[22px] py-[24px] border-t"
     :style="{
       width: width + 'px',
       backgroundColor: backgroundColor

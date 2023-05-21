@@ -6,7 +6,7 @@
       <AsideMenuItem :to="`${prefix}/students`">Ученики</AsideMenuItem>
       <AsideMenuItem :to="`${prefix}/settings`">Настройки</AsideMenuItem>
     </AsideMenu>
-    <div class="grow px-[60px]">
+    <div class="grow px-[60px] max-w-full">
       <MainLoader v-if="isLoading" />
       <router-view v-else></router-view>
     </div>

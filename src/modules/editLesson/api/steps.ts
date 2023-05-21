@@ -123,3 +123,14 @@ export async function changeAnswer(
     return Promise.reject(error)
   }
 }
+
+export async function deleteAnswer(lessonId: number, stepId: number, answerId: number) {
+  try {
+    const res = await axios.delete<AnswerResponse>(
+      `lessons/${lessonId}/steps/${stepId}/test/answer/${answerId}`
+    )
+    return res.data
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}

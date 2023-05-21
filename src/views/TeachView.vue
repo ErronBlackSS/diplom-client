@@ -8,7 +8,7 @@
       <AsideMenuItem to="/teach/classes">Классы</AsideMenuItem>
       <AsideMenuItem to="/teach/students">Мои ученики</AsideMenuItem>
     </AsideMenu>
-    <div class="grow px-[60px] pt-[30px] max-w-[800px]">
+    <div class="grow px-[60px] pt-[30px]">
       <router-view></router-view>
     </div>
   </div>

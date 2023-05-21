@@ -36,13 +36,24 @@
                 />
               </svg>
             </div>
-            <div>
-              {{ element.name }}
-            </div>
+            <div
+              :ref="element.id + 'input'"
+              spellcheck="false"
+              class="text-[14px] leading-[25px] focus:outline-none break-words cursor-editing grow focus:font-[500]"
+              :class="{
+                'text-[#111012CC] font-[400]': !element.isRight,
+                'text-[#111012] font-[500]': element.isRight
+              }"
+              @keydown.enter.prevent
+              @focusout="changeAnswerText($event, element.id)"
+              style="word-break: break-word"
+              contenteditable="true"
+              v-text="element.name"
+            />
           </div>
           <div
             class="flex self-end items-center cursor-pointer hover:transition hover:opacity-[0.8] ml-[20px]"
-            @click="deleteAnswer"
+            @click="deleteAnswer(element.id)"
           >
             <DeleteIcon />
           </div>
@@ -72,7 +83,13 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['changeAnswerOrder', 'setIsRight', 'changeAnswerOrder'],
+  emits: [
+    'changeAnswerOrder',
+    'setIsRight',
+    'changeAnswerOrder',
+    'deleteAnswer',
+    'changeAnswerText'
+  ],
   methods: {
     onChangeAnswerOrder(lesson: StepWithIndexes) {
       const newAnsweIndex = Number(lesson.newIndex)
@@ -92,11 +109,15 @@ export default defineComponent({
       }
       this.$emit('changeAnswerOrder', id, newOrder)
     },
-    deleteAnswer() {
-      console.log('DELETE')
+    deleteAnswer(id: number) {
+      this.$emit('deleteAnswer', id)
     },
     setRightAnswer(id: number, option: boolean) {
       this.$emit('setIsRight', id, !option)
+    },
+    changeAnswerText(event: FocusEvent, answerId: number) {
+      const target = event.target as HTMLDivElement
+      this.$emit('changeAnswerText', answerId, target.innerText)
     }
   }
 })

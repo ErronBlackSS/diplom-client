@@ -50,6 +50,23 @@ export const useStepsStore = defineStore('stepContent', {
 
         this.test.answers[curAnswerId].order = updatedAnswer.order
       }
+    },
+    async deleteAnswer(lessonId: number, stepId: number, answerId: number) {
+      await Api.deleteAnswer(lessonId, stepId, answerId)
+
+      if (this.test) {
+        this.test.answers = this.test.answers.filter((answer) => answer.id !== answerId)
+      }
+    },
+    async changeAnswerText(lessonId: number, stepId: number, answerId: number, name: string) {
+      const updatedAnswer = await Api.changeAnswer(lessonId, stepId, answerId, { name })
+
+      if (this.test) {
+        const curAnswerId = this.test.answers.findIndex((ans) => ans.id === answerId)
+        if (curAnswerId === -1) return
+
+        this.test.answers[curAnswerId].name = updatedAnswer.name
+      }
     }
   }
 })
