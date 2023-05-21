@@ -1,6 +1,6 @@
 import { IsNullable } from '@/helpers/functions'
 import { Type } from 'class-transformer'
-import { IsNumber, IsBoolean, IsString, IsIn } from 'class-validator'
+import { IsNumber, IsBoolean, IsString, IsIn, IsArray, ValidateNested } from 'class-validator'
 import { StepType, TestAnswer } from '../../types/lessons-with-steps'
 
 export class StepContentResponse {
@@ -12,6 +12,7 @@ export class StepContentResponse {
   type: StepType
 
   @Type(() => TestResponse)
+  @ValidateNested()
   @IsNullable()
   test: TestResponse | null
 }
@@ -31,13 +32,18 @@ export class TestResponse {
   @IsNumber()
   stepId: number
 
+  @IsArray()
+  @ValidateNested({ each: true })
   @Type(() => AnswerResponse)
-  answers: TestAnswer
+  answers: TestAnswer[]
 }
 
 export class AnswerResponse {
   @IsNumber()
   id: number
+
+  @IsNumber()
+  order: number
 
   @IsNumber()
   testId: number

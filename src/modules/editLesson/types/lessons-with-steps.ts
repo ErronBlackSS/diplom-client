@@ -13,11 +13,12 @@ export type StepContent = {
 export type Test = {
   id: number
   stepId: number
-  answers: TestAnswer
+  answers: TestAnswer[]
 }
 
 export type TestAnswer = {
   id: number
+  order: number
   name: string
   isRight: boolean
   testId: number

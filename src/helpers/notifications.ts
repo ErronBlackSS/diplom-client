@@ -7,3 +7,11 @@ export function saveNotify(text: string) {
     type: 'success'
   })
 }
+
+export function errorNotify(text: string) {
+  return ElMessage({
+    message: text,
+    duration: 2500,
+    type: 'error'
+  })
+}
