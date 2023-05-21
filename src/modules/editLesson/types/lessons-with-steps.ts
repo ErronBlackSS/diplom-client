@@ -8,7 +8,6 @@ export type Step = {
 export type StepContent = {
   stepId: number
   content: string
-  test: Test | undefined
 }
 
 export type Test = {

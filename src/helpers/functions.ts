@@ -1,4 +1,4 @@
-import { isUUID as uuid } from 'class-validator'
+import { isUUID as uuid, ValidateIf, ValidationOptions } from 'class-validator'
 
 export function isEmailValid(email: string): boolean {
   return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{1,3})+$/.test(email)
@@ -14,6 +14,14 @@ export function convertToOrderRequest(order: number): number {
 
 export function convertFromOrderResponse(order: number): number {
   return Number(order) / 1000000
+}
+
+/**
+ * Декоратор class-validator, который допускает, что значение какого-то типа может быть null
+ * @param validationOptions стандартные опции для декоратора class-validator
+ */
+export function IsNullable(validationOptions?: ValidationOptions) {
+  return ValidateIf((_object, value) => value !== null, validationOptions)
 }
 
 export const debounce = function debounce<T extends (...args: unknown[]) => void>(

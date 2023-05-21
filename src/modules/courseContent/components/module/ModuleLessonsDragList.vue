@@ -15,12 +15,12 @@
         <div class="grow">{{ `${moduleOrder}.${index + 1}` }} {{ element.name }}</div>
         <div class="flex flex-row justify-center items-center gap-[15px]">
           <div
-            class="bg-[#F5F5F5] rounded-[6px] px-[10px] py-[7px] border hover:border-[#1d2f5d]"
+            class="bg-main-grey rounded-[6px] px-[10px] py-[7px] border hover:border-main-blue"
             @click="gotoLesson(element.id)"
           >
             Перейти к уроку
           </div>
-          <div @click="deleteLesson(element.id)" class="hover:bg-[#F5F5F5] rounded-[6px] p-[5px]">
+          <div @click="deleteLesson(element.id)" class="hover:bg-main-grey rounded-[6px] p-[5px]">
             <DeleteIcon />
           </div>
         </div>

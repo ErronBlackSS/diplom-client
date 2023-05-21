@@ -1,33 +1,47 @@
 <template>
-  <div class="flex flex-row justify-start items-center">
-    <div
-      class="w-[50px] h-[50px] rounded-[6px] bg-[#555] flex justify-center items-center"
+  <div class="flex flex-row justify-start items-center gap-[5px]">
+    <StepCrumb
       v-for="step in steps"
+      @click="gotoStep(step.id)"
       :key="step.id"
+      :type="step.type"
+      :active="step.id === currentStepId"
+    />
+    <div
+      class="w-[50px] h-[50px] flex justify-center items-center hover:bg-main-grey rounded-[6px] cursor-pointer"
+      @click="createStep"
     >
-      <StepIcon :step-type="step.type" />
+      <IconAdd />
     </div>
-    <IconAdd />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Step } from '@/modules/editLesson/types/lessons-with-steps'
+import StepCrumb from './StepCrumb.vue'
 import IconAdd from '@/components/Icons/IconAdd.vue'
-import StepIcon from './StepIcon.vue'
 
 export default defineComponent({
-  components: { IconAdd, StepIcon },
+  components: { IconAdd, StepCrumb },
   props: {
     steps: {
       type: Array as PropType<Step[]>,
       required: true
     }
   },
+  emits: ['createStep'],
   computed: {
     currentStepId() {
       return Number(this.$route.params.stepId)
+    }
+  },
+  methods: {
+    createStep() {
+      this.$emit('createStep')
+    },
+    gotoStep(stepId: number) {
+      this.$router.push({ params: { stepId: stepId } })
     }
   }
 })

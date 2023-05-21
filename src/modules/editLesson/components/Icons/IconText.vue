@@ -1,7 +1,7 @@
 <template>
   <svg
-    width="24px"
-    height="24px"
+    :width="`${viewSquare}px`"
+    :height="`${viewSquare}px`"
     viewBox="0 0 1024 1024"
     fill="#000000"
     class="icon"
@@ -18,3 +18,16 @@
     </g>
   </svg>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  props: {
+    viewSquare: {
+      type: Number,
+      default: 24
+    }
+  }
+})
+</script>

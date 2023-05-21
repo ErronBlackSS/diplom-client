@@ -1,8 +1,14 @@
 <template>
   <MainLoader class="!h-screen" v-if="isLoading" />
   <ViewWrapper v-else>
-    <StepBreadCrumb :steps="steps" />
+    <StepBreadCrumb :steps="steps" @create-step="clickShowCreateStepModal" />
+    <router-view></router-view>
   </ViewWrapper>
+  <ModalBoxCreateStep
+    v-if="showCreateStepModal"
+    @create="createStep"
+    @close="clickCloseCreateStepModal"
+  />
 </template>
 
 <script lang="ts">
@@ -12,13 +18,16 @@ import { useStepsStore } from '../store/steps'
 import ViewWrapper from '@/components/ViewWrapper.vue'
 import StepBreadCrumb from './StepsBreadcrumb/StepBreadCrumb.vue'
 import MainLoader from '@/components/MainLoader.vue'
-import { Step } from '../types/lessons-with-steps'
+import { Step, StepType } from '../types/lessons-with-steps'
+import ModalBoxCreateStep from './ModalBoxes/ModalBoxCreateStep.vue'
+import { TYPE_TEXT } from '../constants/step-type-text'
 
 export default defineComponent({
   data: () => ({
-    isLoading: true
+    isLoading: true,
+    showCreateStepModal: false
   }),
-  components: { ViewWrapper, StepBreadCrumb, MainLoader },
+  components: { ViewWrapper, StepBreadCrumb, MainLoader, ModalBoxCreateStep },
   computed: {
     ...mapStores(useStepsStore),
     lessonId() {
@@ -32,7 +41,9 @@ export default defineComponent({
     lessonId: {
       immediate: true,
       handler: async function (newLessonId) {
-        await this.loadLessonSteps(newLessonId)
+        if (newLessonId) {
+          await this.loadLessonSteps(newLessonId)
+        }
       }
     }
   },
@@ -41,6 +52,28 @@ export default defineComponent({
       try {
         this.isLoading = true
         await this.stepsStore.getLessonSteps(lessonId)
+      } finally {
+        this.isLoading = false
+        const firstStep = this.steps.at(0) || undefined
+        if (firstStep) {
+          this.$router.push({ name: 'step', params: { stepId: firstStep.id } })
+        }
+      }
+    },
+    clickCloseCreateStepModal() {
+      this.showCreateStepModal = false
+    },
+    clickShowCreateStepModal() {
+      this.showCreateStepModal = true
+    },
+    async createStep(type: StepType) {
+      try {
+        this.showCreateStepModal = false
+        this.isLoading = true
+        const newStepId = await this.stepsStore.createStep(this.lessonId, type, TYPE_TEXT[type])
+        if (newStepId) {
+          this.$router.push({ name: 'step', params: { stepId: newStepId } })
+        }
       } finally {
         this.isLoading = false
       }

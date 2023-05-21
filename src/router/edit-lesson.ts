@@ -11,9 +11,19 @@ export default [
         path: ':lessonId',
         name: 'lesson',
         meta: {
-          title: 'Каталог'
+          title: 'Редактирование - урок'
         },
-        component: () => import('@/modules/editLesson/components/EditLessonStep.vue')
+        component: () => import('@/modules/editLesson/components/EditLessonStep.vue'),
+        children: [
+          {
+            path: 'step/:stepId',
+            name: 'step',
+            meta: {
+              title: 'Редактирование - урок'
+            },
+            component: () => import('@/modules/editLesson/components/StepContent.vue')
+          }
+        ]
       }
     ]
   }

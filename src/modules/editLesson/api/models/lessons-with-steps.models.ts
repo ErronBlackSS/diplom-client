@@ -1,6 +1,5 @@
-import { Type } from 'class-transformer'
-import { IsString, IsNumber, IsArray, IsBoolean, IsIn } from 'class-validator'
-import { LessonWithSteps, TestAnswer, StepType } from '../../types/lessons-with-steps'
+import { IsString, IsNumber, IsArray, IsIn } from 'class-validator'
+import { LessonWithSteps, StepType } from '../../types/lessons-with-steps'
 
 export class ModuleLessonsWithStepsResponse {
   @IsString()
@@ -20,29 +19,4 @@ export class StepResponse {
   @IsString()
   @IsIn(['TEXT', 'TEST'])
   type: StepType
-}
-
-export class TestResponse {
-  @IsNumber()
-  id: number
-
-  @IsNumber()
-  stepId: number
-
-  @Type(() => AnswerResponse)
-  answers: TestAnswer
-}
-
-export class AnswerResponse {
-  @IsNumber()
-  id: number
-
-  @IsNumber()
-  testId: number
-
-  @IsBoolean()
-  isRight: boolean
-
-  @IsString()
-  name: string
 }

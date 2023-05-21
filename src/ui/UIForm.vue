@@ -2,7 +2,7 @@
   <form class="flex flex-col gap-[15px] w-full" @submit.prevent="submit">
     <div
       v-if="errorMessage"
-      class="py-[22px] font-[500] flex items-center justify-center px-[20px] text-[#E53E3E] rounded-[6px] bg-[#FCE3E3] text-[15px] leading-[150%]"
+      class="py-[22px] font-[500] flex items-center justify-center px-[20px] text-main-red rounded-[6px] bg-[#FCE3E3] text-[15px] leading-[150%]"
     >
       {{ errorMessage }}
     </div>

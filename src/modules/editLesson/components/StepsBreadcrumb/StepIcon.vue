@@ -1,6 +1,6 @@
 <template>
-  <IconTest v-if="stepType === 'TEST'" />
-  <IconText v-else-if="stepType === 'TEXT'" />
+  <IconTest v-if="stepType === StepType.TEST" />
+  <IconText v-else-if="stepType === StepType.TEXT" />
 </template>
 
 <script lang="ts">
@@ -15,6 +15,11 @@ export default defineComponent({
     stepType: {
       type: String as PropType<StepType>,
       required: true
+    }
+  },
+  computed: {
+    StepType() {
+      return StepType
     }
   }
 })

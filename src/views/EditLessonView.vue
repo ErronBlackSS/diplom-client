@@ -2,7 +2,7 @@
   <MainLoader class="!h-screen" v-if="isLoading" />
   <div v-else class="flex flex-row">
     <AsideMenu :width="230">
-      <div class="text-[18px] text-[#1d2f5d] font-[500]">{{ moduleName }}</div>
+      <div class="text-[18px] text-main-blue font-[500]">{{ moduleName }}</div>
       <div class="ml-[15px] flex flex-col gap-[10px]">
         <AsideMenuItem
           class="w-full"

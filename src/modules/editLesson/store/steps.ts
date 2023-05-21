@@ -11,9 +11,10 @@ export const useStepsStore = defineStore('steps', {
       const steps = await Api.getLessonSteps(lessonId)
       this.steps = steps
     },
-    async createStep(lessonId: number, type: StepType, content: string) {
+    async createStep(lessonId: number, type: StepType, content: string): Promise<number> {
       const step = await Api.createStep(lessonId, type, content)
       this.steps.push(step)
+      return step.id
     }
   }
 })

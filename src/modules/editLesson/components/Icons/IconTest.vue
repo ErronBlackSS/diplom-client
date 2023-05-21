@@ -3,8 +3,8 @@
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    width="24px"
-    height="24px"
+    :width="`${viewSquare}px`"
+    :height="`${viewSquare}px`"
     viewBox="0 0 24 24"
     xml:space="preserve"
     fill="#000000"
@@ -183,3 +183,16 @@
     </g>
   </svg>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  props: {
+    viewSquare: {
+      type: Number,
+      default: 24
+    }
+  }
+})
+</script>
