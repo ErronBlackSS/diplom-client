@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import * as Api from '../api/steps'
-import { StepType, Step } from '../types/lessons-with-steps'
+import { StepType, Step } from '../types/steps'
 
 export const useStepsStore = defineStore('steps', {
   state: () => ({

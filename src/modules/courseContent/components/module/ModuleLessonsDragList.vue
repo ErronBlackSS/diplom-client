@@ -57,6 +57,11 @@ export default defineComponent({
     }
   },
   emits: ['changeLessonOrder', 'deleteLesson'],
+  computed: {
+    courseId(): number {
+      return Number(this.$route.params.courseId)
+    }
+  },
   methods: {
     onChangeLessonOrder(lesson: LessonWithIndexes) {
       const newLessonIndex = Number(lesson.newIndex)
@@ -78,7 +83,7 @@ export default defineComponent({
     },
     gotoLesson(id: number) {
       this.$router.push({
-        path: `/edit-lesson/${this.moduleId}/${id}`
+        path: `/edit-lesson/${this.courseId}/${id}`
       })
     },
     deleteLesson(lessonId: number) {

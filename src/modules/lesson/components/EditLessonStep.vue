@@ -18,7 +18,7 @@ import { useStepsStore } from '../store/steps'
 import ViewWrapper from '@/components/ViewWrapper.vue'
 import StepBreadCrumb from './StepsBreadcrumb/StepBreadCrumb.vue'
 import MainLoader from '@/components/MainLoader.vue'
-import { Step, StepType } from '../types/lessons-with-steps'
+import { Step, StepType } from '../types/steps'
 import ModalBoxCreateStep from './ModalBoxes/ModalBoxCreateStep.vue'
 import { TYPE_TEXT } from '../constants/step-type-text'
 

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Step } from '@/modules/editLesson/types/lessons-with-steps'
+import { Step } from '@/modules/lesson/types/modules-with-lessons'
 import StepCrumb from './StepCrumb.vue'
 import IconAdd from '@/components/Icons/IconAdd.vue'
 

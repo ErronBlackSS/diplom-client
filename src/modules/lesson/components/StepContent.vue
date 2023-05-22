@@ -25,7 +25,7 @@ import ContentEditor from '@/components/ContentEditor/ContentEditor.vue'
 import { saveNotify } from '@/helpers/notifications'
 import ViewWrapper from '@/components/ViewWrapper.vue'
 import DeviderHorizonalLine from '@/ui/DeviderHorizonalLine.vue'
-import { StepType } from '../types/lessons-with-steps'
+import { StepType } from '../types/steps'
 import StepTest from './Test/StepTest.vue'
 
 export default defineComponent({

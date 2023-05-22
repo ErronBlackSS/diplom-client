@@ -1,7 +1,7 @@
 import { IsNullable } from '@/helpers/functions'
 import { Type } from 'class-transformer'
 import { IsNumber, IsBoolean, IsString, IsIn, IsArray, ValidateNested } from 'class-validator'
-import { StepType, TestAnswer } from '../../types/lessons-with-steps'
+import { StepType, TestAnswer } from '../../types/steps'
 
 export class StepContentResponse {
   @Type(() => StepContent)
@@ -15,6 +15,15 @@ export class StepContentResponse {
   @ValidateNested()
   @IsNullable()
   test: TestResponse | null
+}
+
+export class StepResponse {
+  @IsNumber()
+  id: number
+
+  @IsString()
+  @IsIn(['TEXT', 'TEST'])
+  type: StepType
 }
 
 class StepContent {

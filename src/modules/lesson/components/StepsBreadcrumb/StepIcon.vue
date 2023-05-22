@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { StepType } from '@/modules/editLesson/types/lessons-with-steps'
+import { StepType } from '@/modules/lesson/types/steps'
 import IconTest from '../Icons/IconTest.vue'
 import IconText from '../Icons/IconText.vue'
 

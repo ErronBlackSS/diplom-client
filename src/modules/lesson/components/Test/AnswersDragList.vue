@@ -68,7 +68,7 @@ import { defineComponent, PropType } from 'vue'
 import draggable from 'vuedraggable'
 import { Lesson } from '@/modules/courseContent/types/lessons'
 import DeleteIcon from '@/components/Icons/DeleteIcon.vue'
-import { TestAnswer } from '../../types/lessons-with-steps'
+import { TestAnswer } from '../../types/modules-with-lessons'
 
 interface StepWithIndexes extends Lesson {
   newIndex: number

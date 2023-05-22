@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { StepType } from '../../types/lessons-with-steps'
+import { StepType } from '../../types/steps'
 import StepIcon from './StepIcon.vue'
 
 export default defineComponent({

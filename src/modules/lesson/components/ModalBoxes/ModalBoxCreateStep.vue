@@ -33,7 +33,7 @@ import ModalBox from '@/components/ModalBox.vue'
 import IconTest from '../Icons/IconTest.vue'
 import IconText from '../Icons/IconText.vue'
 import DeviderHorizonalLine from '@/ui/DeviderHorizonalLine.vue'
-import { StepType } from '../../types/lessons-with-steps'
+import { StepType } from '../../types/steps'
 
 export default defineComponent({
   components: { ModalBox, IconTest, IconText, DeviderHorizonalLine },

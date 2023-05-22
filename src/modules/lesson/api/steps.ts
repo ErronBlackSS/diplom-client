@@ -1,8 +1,8 @@
 import { ResponseValidateError } from '@/helpers/error_validation'
 import axios from '@/plugins/axios'
 import { transformAndValidate } from 'class-transformer-validator'
-import { Step, StepType, TestAnswer } from '../types/lessons-with-steps'
-import { StepResponse } from './models/lessons-with-steps.models'
+import { Step, StepType, TestAnswer } from '../types/steps'
+import { StepResponse } from './models/steps.models'
 import { AnswerResponse, StepContentResponse } from './models/steps.models'
 import { convertToOrderRequest, convertFromOrderResponse } from '@/helpers/functions'
 

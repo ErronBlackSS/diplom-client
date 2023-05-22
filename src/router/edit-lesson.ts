@@ -2,9 +2,9 @@ import { shouldRedirectToMain } from './utils'
 
 export default [
   {
-    path: '/edit-lesson/:moduleId',
+    path: '/edit-lesson/:courseId',
     name: 'edit-lesson',
-    component: () => import('@/views/EditLessonView.vue'),
+    component: () => import('@/views/LessonView.vue'),
     beforeEnter: shouldRedirectToMain,
     children: [
       {
@@ -13,7 +13,7 @@ export default [
         meta: {
           title: 'Редактирование - урок'
         },
-        component: () => import('@/modules/editLesson/components/EditLessonStep.vue'),
+        component: () => import('@/modules/lesson/components/EditLessonStep.vue'),
         children: [
           {
             path: 'step/:stepId',
@@ -21,7 +21,7 @@ export default [
             meta: {
               title: 'Редактирование - урок'
             },
-            component: () => import('@/modules/editLesson/components/StepContent.vue')
+            component: () => import('@/modules/lesson/components/StepContent.vue')
           }
         ]
       }

@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/no-v-model-argument -->
 
 <template>
-  <div class="flex flex-col min-h-[300px]">
+  <div class="flex flex-col">
     <QuillEditor
-      class="content-editor bg-white border rounded-[16px] w-full scroll-style self-center min-h-[300px]"
+      class="content-editor bg-white border rounded-[16px] w-full scroll-style self-center"
       v-model:content="contentValue"
       toolbar="full"
       spellcheck="false"
@@ -156,7 +156,7 @@ export default defineComponent({
 }
 
 :deep(.ql-editor) {
-  min-height: 300px;
+  min-height: 150px;
 }
 
 :deep(.ql-editor .ql-video) {
