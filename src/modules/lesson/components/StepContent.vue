@@ -71,7 +71,7 @@ export default defineComponent({
   methods: {
     async loadStepContent(stepId: number) {
       try {
-        await this.stepContentStore.getStep(this.lessonId, stepId)
+        await this.stepContentStore.getStep(stepId)
       } finally {
         this.stepTextContent = this.step.content
         this.isLoading = false
@@ -79,28 +79,24 @@ export default defineComponent({
     },
     async saveStepContent() {
       if (this.stepTextContent !== this.step.content) {
-        await this.stepContentStore.updateStepContent(
-          this.lessonId,
-          this.stepId,
-          this.stepTextContent
-        )
+        await this.stepContentStore.updateStepContent(this.stepId, this.stepTextContent)
         saveNotify('Контент шага сохранен!')
       }
     },
     async addAnswer(testId: number, name: string) {
-      await this.stepContentStore.createTestAnswer(this.lessonId, this.stepId, testId, 0, name)
+      await this.stepContentStore.createTestAnswer(this.stepId, testId, 0, name)
     },
     async setRightAnswer(answerId: number, option: boolean) {
-      await this.stepContentStore.setRightAnswer(this.lessonId, this.stepId, answerId, option)
+      await this.stepContentStore.setRightAnswer(this.stepId, answerId, option)
     },
     async changeOrder(answerId: number, order: number) {
-      await this.stepContentStore.changeAnswerOrder(this.lessonId, this.stepId, answerId, order)
+      await this.stepContentStore.changeAnswerOrder(this.stepId, answerId, order)
     },
     async deleteAnswer(answerId: number) {
-      await this.stepContentStore.deleteAnswer(this.lessonId, this.stepId, answerId)
+      await this.stepContentStore.deleteAnswer(this.stepId, answerId)
     },
     async changeAnswerText(answerId: number, name: string) {
-      await this.stepContentStore.changeAnswerText(this.lessonId, this.stepId, answerId, name)
+      await this.stepContentStore.changeAnswerText(this.stepId, answerId, name)
     }
   }
 })

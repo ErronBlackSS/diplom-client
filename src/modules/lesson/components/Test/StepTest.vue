@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Test } from '../../types/modules-with-lessons'
+import { Test } from '../../types/steps'
 import AnswersDragList from './AnswersDragList.vue'
 import CustomInput from '@/ui/CustomInput.vue'
 import ShouldBeCorrectAnswerPanel from './ShouldBeCorrectAnswerPanel.vue'

@@ -8,7 +8,7 @@ import { CreateModuleDto, getCourseContentResponse } from './models/module.model
 
 export async function createModule(data: CreateModuleDto): Promise<Module> {
   try {
-    const res = await axios.post(`module/create`, data)
+    const res = await axios.post(`modules/create`, data)
     return res.data
   } catch (error) {
     return Promise.reject(error)

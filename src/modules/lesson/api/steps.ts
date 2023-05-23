@@ -8,7 +8,8 @@ import { convertToOrderRequest, convertFromOrderResponse } from '@/helpers/funct
 
 export async function createStep(lessonId: number, type: StepType, content: string): Promise<Step> {
   try {
-    const res = await axios.post<StepResponse>(`lessons/${lessonId}/steps`, {
+    const res = await axios.post<StepResponse>(`steps`, {
+      lessonId,
       type,
       content
     })
@@ -24,9 +25,9 @@ export async function createStep(lessonId: number, type: StepType, content: stri
   }
 }
 
-export async function getStepContent(lessonId: number, stepId: number) {
+export async function getStepContent(stepId: number) {
   try {
-    const res = await axios.get<StepContentResponse>(`lessons/${lessonId}/steps/${stepId}`)
+    const res = await axios.get<StepContentResponse>(`steps/${stepId}`)
 
     const result = await transformAndValidate(StepContentResponse, res.data)
 
@@ -45,9 +46,9 @@ export async function getStepContent(lessonId: number, stepId: number) {
   }
 }
 
-export async function updateStepContent(lessonId: number, stepId: number, content: string) {
+export async function updateStepContent(stepId: number, content: string) {
   try {
-    const res = await axios.patch(`lessons/${lessonId}/steps/${stepId}/content`, {
+    const res = await axios.patch(`steps/${stepId}/content`, {
       content
     })
 
@@ -73,21 +74,17 @@ export async function getLessonSteps(lessonId: number): Promise<Step[]> {
 }
 
 export async function createTestAnswer(
-  lessonId: number,
   stepId: number,
   testId: number,
   order: number,
   name: string
 ) {
   try {
-    const res = await axios.post<AnswerResponse>(
-      `lessons/${lessonId}/steps/${stepId}/test/answer`,
-      {
-        testId,
-        name,
-        order: convertToOrderRequest(order)
-      }
-    )
+    const res = await axios.post<AnswerResponse>(`steps/${stepId}/test/answer`, {
+      testId,
+      name,
+      order: convertToOrderRequest(order)
+    })
     const result = await transformAndValidate(AnswerResponse, res.data)
 
     return { ...result, order: convertFromOrderResponse(result.order) }
@@ -99,20 +96,12 @@ export async function createTestAnswer(
   }
 }
 
-export async function changeAnswer(
-  lessonId: number,
-  stepId: number,
-  answerId: number,
-  data: Partial<TestAnswer>
-) {
+export async function changeAnswer(stepId: number, answerId: number, data: Partial<TestAnswer>) {
   try {
     if (data.order) {
       data.order = convertToOrderRequest(data.order)
     }
-    const res = await axios.patch<AnswerResponse>(
-      `lessons/${lessonId}/steps/${stepId}/test/answer/${answerId}`,
-      data
-    )
+    const res = await axios.patch<AnswerResponse>(`steps/${stepId}/test/answer/${answerId}`, data)
     const result = await transformAndValidate(AnswerResponse, res.data)
 
     return { ...result, order: convertFromOrderResponse(result.order) }
@@ -124,11 +113,9 @@ export async function changeAnswer(
   }
 }
 
-export async function deleteAnswer(lessonId: number, stepId: number, answerId: number) {
+export async function deleteAnswer(stepId: number, answerId: number) {
   try {
-    const res = await axios.delete<AnswerResponse>(
-      `lessons/${lessonId}/steps/${stepId}/test/answer/${answerId}`
-    )
+    const res = await axios.delete<AnswerResponse>(`steps/${stepId}/test/answer/${answerId}`)
     return res.data
   } catch (error) {
     return Promise.reject(error)
