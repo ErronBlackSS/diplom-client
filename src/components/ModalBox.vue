@@ -1,9 +1,10 @@
 <template>
   <teleport to="body">
-    <div
+    <form
       class="z-50 flex items-center flex-col justify-center overflow-hidden fixed inset-0 border bg-[#000] bg-opacity-25"
+      @submit.prevent="onSave"
     >
-      <div class="rounded-xl border-[2px] border-[#212022] p-[40px] bg-white z-50">
+      <div class="rounded-xl border-[2px] border-[#212022] p-[20px] bg-white z-50">
         <div class="flex gap-[8px]">
           <div
             class="grow self-center text-[#111012] font-[500] text-[24px] leading-[19px] break-words"
@@ -33,25 +34,57 @@
             <slot />
           </div>
         </div>
+        <div v-if="ok || cancel" class="flex gap-[4px] justify-center">
+          <UIButton
+            v-if="ok"
+            type="submit"
+            id="modalBoxSubmitButton"
+            class="min-w-[169px] w-full px-[20px] py-[12px] rounded-md bg-[#111012] text-white text-[13px] leading-[15px] font-medium disabled:opacity-70 disabled:cursor-default hover:opacity-[0.8] transition-colors duration-[150ms] ease-in"
+            :class="[disabled ? 'cursor-wait' : 'cursor-pointer']"
+            :disabled="disabled"
+          >
+            {{ ok }}
+          </UIButton>
+          <UIButton class="min-w-[169px]" v-if="cancel" @click="onClose">
+            {{ cancel }}
+          </UIButton>
+        </div>
       </div>
-    </div>
+    </form>
   </teleport>
 </template>
 
 <script lang="ts">
+import UIButton from '@/ui/UIButton.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  components: { UIButton },
   props: {
     title: {
       type: String,
       required: true
+    },
+    ok: {
+      type: String,
+      default: ''
+    },
+    cancel: {
+      type: String,
+      default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
-  emits: ['close'],
+  emits: ['close', 'save'],
   methods: {
     onClose() {
       this.$emit('close')
+    },
+    onSave() {
+      this.$emit('save')
     }
   }
 })

@@ -9,19 +9,19 @@ export default [
     children: [
       {
         path: ':lessonId',
-        name: 'lesson',
+        name: 'edit-lesson-bread',
         meta: {
           title: 'Редактирование - урок'
         },
-        component: () => import('@/modules/lesson/components/EditLessonStep.vue'),
+        component: () => import('@/modules/lesson/components/Editing/EditLessonStep.vue'),
         children: [
           {
             path: 'step/:stepId',
-            name: 'step',
+            name: 'edit-step',
             meta: {
               title: 'Редактирование - урок'
             },
-            component: () => import('@/modules/lesson/components/StepContent.vue')
+            component: () => import('@/modules/lesson/components/Editing/EditStepContent.vue')
           }
         ]
       }

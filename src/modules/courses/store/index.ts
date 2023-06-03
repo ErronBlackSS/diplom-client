@@ -26,6 +26,17 @@ export const useCoursesStore = defineStore('courses', {
       const newCourse = await Api.createCourse(name)
       this.addCourse(newCourse)
     },
+    async deleteCourse(courseId: number) {
+      await Api.deleteCourse(courseId)
+      this.userCourses = this.userCourses.filter((course) => course.id !== courseId)
+    },
+    async renameCourse(courseId: number, name: string) {
+      await Api.updateCourse(courseId, { name })
+      const course = this.userCourses.find((course) => course.id === courseId)
+
+      if (!course) return
+      course.name = name
+    },
     addCourse(course: Course) {
       this.userCourses.push(course)
     }

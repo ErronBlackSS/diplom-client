@@ -53,7 +53,7 @@ export default defineComponent({
       return this.lessonStore.modules
     },
     prefix() {
-      return `/edit-lesson/${this.courseId}`
+      return `/lesson/${this.courseId}`
     }
   },
   async mounted() {

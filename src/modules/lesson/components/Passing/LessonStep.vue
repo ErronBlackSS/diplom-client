@@ -1,33 +1,25 @@
 <template>
   <MainLoader class="!h-screen" v-if="isLoading" />
   <ViewWrapper v-else>
-    <StepBreadCrumb :steps="steps" @create-step="clickShowCreateStepModal" />
+    <StepBreadCrumb :steps="steps" />
     <router-view></router-view>
   </ViewWrapper>
-  <ModalBoxCreateStep
-    v-if="showCreateStepModal"
-    @create="createStep"
-    @close="clickCloseCreateStepModal"
-  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapStores } from 'pinia'
-import { useStepsStore } from '../store/steps'
-import ViewWrapper from '@/components/ViewWrapper.vue'
-import StepBreadCrumb from './StepsBreadcrumb/StepBreadCrumb.vue'
 import MainLoader from '@/components/MainLoader.vue'
-import { Step, StepType } from '../types/steps'
-import ModalBoxCreateStep from './ModalBoxes/ModalBoxCreateStep.vue'
-import { TYPE_TEXT } from '../constants/step-type-text'
+import ViewWrapper from '@/components/ViewWrapper.vue'
+import StepBreadCrumb from './../StepsBreadcrumb/StepBreadCrumb.vue'
+import { useStepsStore } from '../../store/steps'
+import { Step } from '../../types/steps'
 
 export default defineComponent({
+  components: { MainLoader, ViewWrapper, StepBreadCrumb },
   data: () => ({
-    isLoading: true,
-    showCreateStepModal: false
+    isLoading: true
   }),
-  components: { ViewWrapper, StepBreadCrumb, MainLoader, ModalBoxCreateStep },
   computed: {
     ...mapStores(useStepsStore),
     lessonId() {
@@ -68,24 +60,6 @@ export default defineComponent({
         if (firstStep) {
           this.$router.push({ name: 'step', params: { stepId: firstStep.id } })
         }
-      }
-    },
-    clickCloseCreateStepModal() {
-      this.showCreateStepModal = false
-    },
-    clickShowCreateStepModal() {
-      this.showCreateStepModal = true
-    },
-    async createStep(type: StepType) {
-      try {
-        this.showCreateStepModal = false
-        this.isLoading = true
-        const newStepId = await this.stepsStore.createStep(this.lessonId, type, TYPE_TEXT[type])
-        if (newStepId) {
-          this.$router.push({ name: 'step', params: { stepId: newStepId } })
-        }
-      } finally {
-        this.isLoading = false
       }
     }
   }

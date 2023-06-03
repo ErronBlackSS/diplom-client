@@ -1,6 +1,6 @@
 <template>
   <MainLoader v-if="isLoading" />
-  <ViewWrapper class="!my-[30px] !py-[0px] w-full" v-else>
+  <div class="h-screen my-[10px] w-full" v-else>
     <ContentEditor v-model="stepTextContent" @save="saveStepContent" />
     <DeviderHorizonalLine />
     <StepTest
@@ -13,23 +13,22 @@
       @delete-answer="deleteAnswer"
       @change-answer-text="changeAnswerText"
     />
-  </ViewWrapper>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapStores } from 'pinia'
-import { useStepsStore } from '../store/step-content'
+import { useStepsStore } from '../../store/step-content'
 import MainLoader from '@/components/MainLoader.vue'
 import ContentEditor from '@/components/ContentEditor/ContentEditor.vue'
 import { saveNotify } from '@/helpers/notifications'
-import ViewWrapper from '@/components/ViewWrapper.vue'
 import DeviderHorizonalLine from '@/ui/DeviderHorizonalLine.vue'
-import { StepType } from '../types/steps'
-import StepTest from './Test/StepTest.vue'
+import { StepType } from '../../types/steps'
+import StepTest from './../Test/StepTest.vue'
 
 export default defineComponent({
-  components: { MainLoader, ContentEditor, ViewWrapper, DeviderHorizonalLine, StepTest },
+  components: { MainLoader, ContentEditor, DeviderHorizonalLine, StepTest },
   data: () => ({
     isLoading: true,
     stepTextContent: ''
