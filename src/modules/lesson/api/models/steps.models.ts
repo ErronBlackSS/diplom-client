@@ -24,6 +24,9 @@ export class StepResponse {
   @IsString()
   @IsIn(['TEXT', 'TEST'])
   type: StepType
+
+  @IsArray()
+  usersPassed: number[]
 }
 
 class StepContent {
@@ -62,4 +65,12 @@ export class AnswerResponse {
 
   @IsString()
   name: string
+}
+
+export class TestCompleteResponse {
+  @IsString()
+  status: string
+
+  @IsArray()
+  failedAnswers: number[]
 }

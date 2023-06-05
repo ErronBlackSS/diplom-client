@@ -1,7 +1,7 @@
 <template>
   <div
-    class="w-[50px] h-[50px] rounded-[6px] border border-main-blue flex justify-center items-center hover:bg-main-grey cursor-pointer"
-    :class="active ? '!bg-[#00e500]' : ''"
+    class="w-[50px] h-[50px] rounded-[6px] border border-main-gray flex justify-center items-center hover:bg-main-grey cursor-pointer"
+    :class="{ '!border-main-blue': active, 'bg-[#00e500]': completed }"
     @click="$emit('click')"
   >
     <StepIcon :step-type="type" />
@@ -21,6 +21,10 @@ export default defineComponent({
       required: true
     },
     active: {
+      type: Boolean,
+      default: false
+    },
+    completed: {
       type: Boolean,
       default: false
     }

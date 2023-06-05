@@ -1,6 +1,7 @@
 export type Step = {
   id: number
   type: StepType
+  usersPassed: number[]
 }
 
 export type StepContent = {

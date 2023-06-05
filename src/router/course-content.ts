@@ -19,6 +19,16 @@ export default [
         path: 'edit',
         name: 'course-edit',
         component: () => import('@/modules/courseContent/components/CourseContentEdit.vue')
+      },
+      {
+        path: 'settings',
+        name: 'course-settings',
+        component: () => import('@/modules/courseContent/components/CourseSettings.vue')
+      },
+      {
+        path: 'students',
+        name: 'course-students',
+        component: () => import('@/modules/courseContent/components/CourseStudents.vue')
       }
     ]
   }

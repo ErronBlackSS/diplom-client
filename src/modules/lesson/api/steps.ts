@@ -2,7 +2,7 @@ import { ResponseValidateError } from '@/helpers/error_validation'
 import axios from '@/plugins/axios'
 import { transformAndValidate } from 'class-transformer-validator'
 import { Step, StepType, TestAnswer } from '../types/steps'
-import { StepResponse } from './models/steps.models'
+import { StepResponse, TestCompleteResponse } from './models/steps.models'
 import { AnswerResponse, StepContentResponse } from './models/steps.models'
 import { convertToOrderRequest, convertFromOrderResponse } from '@/helpers/functions'
 
@@ -118,6 +118,39 @@ export async function deleteAnswer(stepId: number, answerId: number) {
     const res = await axios.delete<AnswerResponse>(`steps/${stepId}/test/answer/${answerId}`)
     return res.data
   } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export async function completeStep(stepId: number) {
+  try {
+    const res = await axios.post(`steps/${stepId}/complete`)
+
+    return res.data
+  } catch (error) {
+    if (error instanceof Array && error.length) {
+      throw new ResponseValidateError(new Error(error.toString()))
+    }
+    return Promise.reject(error)
+  }
+}
+
+export async function completeStepTest(
+  stepId: number,
+  answers: number[]
+): Promise<TestCompleteResponse> {
+  try {
+    const res = await axios.post<TestCompleteResponse>(`steps/${stepId}/test/complete`, {
+      answers
+    })
+
+    const validated = await transformAndValidate(TestCompleteResponse, res.data)
+
+    return validated
+  } catch (error) {
+    if (error instanceof Array && error.length) {
+      throw new ResponseValidateError(new Error(error.toString()))
+    }
     return Promise.reject(error)
   }
 }

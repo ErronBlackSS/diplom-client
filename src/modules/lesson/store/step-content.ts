@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import * as Api from '../api/steps'
 import { StepContent, StepType, Test } from '../types/steps'
 
-export const useStepsStore = defineStore('stepContent', {
+export const useStepContentStore = defineStore('stepContent', {
   state: () => ({
     step: {} as StepContent,
     type: undefined as StepType | undefined,
@@ -61,6 +61,18 @@ export const useStepsStore = defineStore('stepContent', {
 
         this.test.answers[curAnswerId].name = updatedAnswer.name
       }
+    },
+    async completeStep(stepId: number) {
+      return Api.completeStep(stepId)
+    },
+    async completeTest(stepId: number, answers: number[]) {
+      const completeData = await Api.completeStepTest(stepId, answers)
+
+      if (completeData.status === 'success') {
+        await this.completeStep(stepId)
+      }
+
+      return completeData
     }
   }
 })

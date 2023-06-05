@@ -6,8 +6,10 @@
       :key="step.id"
       :type="step.type"
       :active="step.id === currentStepId"
+      :completed="completedSteps.includes(step.id)"
     />
     <div
+      v-if="showCreate"
       class="w-[50px] h-[50px] flex justify-center items-center hover:bg-main-grey rounded-[6px] cursor-pointer"
       @click="createStep"
     >
@@ -28,6 +30,14 @@ export default defineComponent({
     steps: {
       type: Array as PropType<Step[]>,
       required: true
+    },
+    showCreate: {
+      type: Boolean,
+      default: true
+    },
+    completedSteps: {
+      type: Array as PropType<number[]>,
+      default: () => []
     }
   },
   emits: ['createStep'],

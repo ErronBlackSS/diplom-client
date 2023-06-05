@@ -62,11 +62,11 @@ export default defineComponent({
     },
     gotoStep() {
       if (this.stepId) {
-        this.$router.push({ name: 'step', params: { stepId: this.stepId } })
+        this.$router.push({ name: 'edit-step', params: { stepId: this.stepId } })
       } else {
         const firstStep = this.steps.at(0) || undefined
         if (firstStep) {
-          this.$router.push({ name: 'step', params: { stepId: firstStep.id } })
+          this.$router.push({ name: 'edit-step', params: { stepId: firstStep.id } })
         }
       }
     },
@@ -82,7 +82,7 @@ export default defineComponent({
         this.isLoading = true
         const newStepId = await this.stepsStore.createStep(this.lessonId, type, TYPE_TEXT[type])
         if (newStepId) {
-          this.$router.push({ name: 'step', params: { stepId: newStepId } })
+          this.$router.push({ name: 'edit-step', params: { stepId: newStepId } })
         }
       } finally {
         this.isLoading = false

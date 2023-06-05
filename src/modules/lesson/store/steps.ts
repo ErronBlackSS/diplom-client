@@ -15,6 +15,12 @@ export const useStepsStore = defineStore('steps', {
       const step = await Api.createStep(lessonId, type, content)
       this.steps.push(step)
       return step.id
+    },
+    pushPassedUser(stepId: number, userId: number) {
+      const stepIndex = this.steps.findIndex((step) => step.id === stepId)
+      if (stepIndex === -1) return
+
+      this.steps[stepIndex].usersPassed.push(userId)
     }
   }
 })

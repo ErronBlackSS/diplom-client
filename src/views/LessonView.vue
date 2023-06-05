@@ -52,8 +52,12 @@ export default defineComponent({
     modules() {
       return this.lessonStore.modules
     },
+    isEditing() {
+      return this.$route.path.includes('/edit-lesson')
+    },
     prefix() {
-      return `/lesson/${this.courseId}`
+      const editOrPass = this.isEditing ? '/edit-lesson' : '/lesson'
+      return `${editOrPass}/${this.courseId}`
     }
   },
   async mounted() {

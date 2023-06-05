@@ -3,7 +3,7 @@
   <div class="h-screen my-[10px] w-full" v-else>
     <ContentEditor v-model="stepTextContent" @save="saveStepContent" />
     <DeviderHorizonalLine />
-    <StepTest
+    <EditStepTest
       class="py-[15px]"
       v-if="isTest && test"
       :test="test"
@@ -19,16 +19,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapStores } from 'pinia'
-import { useStepsStore } from '../../store/step-content'
+import { useStepContentStore } from '../../store/step-content'
 import MainLoader from '@/components/MainLoader.vue'
 import ContentEditor from '@/components/ContentEditor/ContentEditor.vue'
 import { saveNotify } from '@/helpers/notifications'
 import DeviderHorizonalLine from '@/ui/DeviderHorizonalLine.vue'
 import { StepType } from '../../types/steps'
-import StepTest from './../Test/StepTest.vue'
+import EditStepTest from './../Test/EditStepTest.vue'
 
 export default defineComponent({
-  components: { MainLoader, ContentEditor, DeviderHorizonalLine, StepTest },
+  components: { MainLoader, ContentEditor, DeviderHorizonalLine, EditStepTest },
   data: () => ({
     isLoading: true,
     stepTextContent: ''
@@ -44,7 +44,7 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapStores(useStepsStore),
+    ...mapStores(useStepContentStore),
     StepType() {
       return StepType
     },
