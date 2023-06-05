@@ -7,7 +7,7 @@
       Вы ответили неверно. Пожалуйста, еще раз внимательно ознакомьтесь с предыдущими шагами и
       пройдите тест повторно
     </div>
-    <StepTest v-if="isTest && test" @complete="completeTest" :test="test" />
+    <StepTest v-if="isTest && test" @complete="completeTest" :is-passed="stepPassed" :test="test" />
   </div>
 </template>
 
@@ -80,6 +80,12 @@ export default defineComponent({
     },
     test() {
       return this.stepContentStore.test
+    },
+    stepPassed() {
+      const currentStep = this.allSteps.find((step) => step.id === this.stepId)
+      if (!currentStep || !this.user) return false
+
+      return currentStep.usersPassed.includes(this.user.id)
     }
   },
   methods: {

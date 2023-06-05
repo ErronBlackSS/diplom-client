@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col gap-[5px]">
     <div
-      v-for="{ id, name } in answers"
+      v-for="{ id, name, isRight } in answers"
       :key="id"
       class="bg-white border border-[#e0e0e0] rounded-[8px] min-h-[51px] grow flex items-center justify-between p-[14px]"
-      :class="{ 'border-[#00e500]': selectedAnswers.includes(id) }"
+      :class="{ 'border-[#00e500]': selectedAnswers.includes(id) || (isPassed && isRight) }"
       @click="selectAnswer(id)"
     >
       <div class="flex flex-row gap-[5px]">
@@ -18,7 +18,7 @@
       :class="{
         'bg-[#E7E2E1] hover:bg-[#C5C5C5] cursor-not-allowed': !selectedAnswers.length
       }"
-      :disabled="!selectedAnswers.length"
+      :disabled="!selectedAnswers.length || isPassed"
       @click="clickComplete"
     >
       Сохранить ответ
@@ -38,17 +38,22 @@ export default defineComponent({
     answers: {
       type: Array as PropType<TestAnswer[]>,
       required: true
+    },
+    isPassed: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['complete'],
   methods: {
     selectAnswer(id: number) {
-      if (this.selectedAnswers.includes(id)) {
-        console.log('hello?')
-        this.selectedAnswers = this.selectedAnswers.filter((answerId) => answerId !== id)
-        return
+      if (!this.isPassed) {
+        if (this.selectedAnswers.includes(id)) {
+          this.selectedAnswers = this.selectedAnswers.filter((answerId) => answerId !== id)
+          return
+        }
+        this.selectedAnswers.push(id)
       }
-      this.selectedAnswers.push(id)
     },
     clickComplete() {
       if (this.selectedAnswers.length === 0) return

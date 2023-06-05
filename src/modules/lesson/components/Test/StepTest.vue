@@ -3,7 +3,7 @@
     <div class="text-left font-roboto font-[500] text-[15px] leading-[21px] text-[#111012A6]">
       В вопросе один правильный ответ
     </div>
-    <AnswersList @complete="completeTest" :answers="answers" />
+    <AnswersList @complete="completeTest" :is-passed="isPassed" :answers="answers" />
   </div>
 </template>
 
@@ -18,6 +18,10 @@ export default defineComponent({
     test: {
       type: Object as PropType<Test>,
       required: true
+    },
+    isPassed: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['complete'],
