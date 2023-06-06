@@ -1,13 +1,32 @@
 import { defineStore } from 'pinia'
-import { Module } from '../types'
+import { CourseChecklist, Module } from '../types'
 import * as Api from '../api/.'
 import { Lesson } from '../types/lessons'
 
 export const useCourseContentStore = defineStore('courseContent', {
   state: () => ({
-    modules: [] as Module[]
+    modules: [] as Module[],
+    checkList: {} as CourseChecklist
   }),
   getters: {
+    checkListDone(state) {
+      if (!state.checkList) return
+      const checklist = state.checkList
+      if (
+        !checklist.emptyModules ||
+        checklist.enoughLessons < 8 ||
+        checklist.enoughModules < 3 ||
+        !checklist.enoughSteps ||
+        checklist.enoughTests < 5 ||
+        !checklist.moduleNames ||
+        !checklist.stepsEmptyContent ||
+        !checklist.testEnoughAnswers ||
+        !checklist.testRightAnswers
+      ) {
+        return false
+      }
+      return true
+    },
     modulesMap(state) {
       if (!state.modules) return
       return state.modules.reduce<Record<number, Module | undefined>>((acc, module) => {
@@ -33,6 +52,10 @@ export const useCourseContentStore = defineStore('courseContent', {
     async getCourseContent(courseId: number) {
       const courseContent = await Api.getCourseContent(courseId)
       this.modules = courseContent.modules
+    },
+    async getCheckList(courseId: number) {
+      const checkList = await Api.getCourseCheckList(courseId)
+      this.checkList = checkList
     },
     async createLesson(moduleId: number, name: string, order: number) {
       const lesson = await Api.createLesson({ name, moduleId, order })

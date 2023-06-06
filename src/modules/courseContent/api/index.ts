@@ -2,7 +2,7 @@ import { ResponseValidateError } from '@/helpers/error_validation'
 import { convertToOrderRequest, convertFromOrderResponse } from '@/helpers/functions'
 import axios from '@/plugins/axios'
 import { transformAndValidate } from 'class-transformer-validator'
-import { CourseContent, Module } from '../types'
+import { CourseChecklist, CourseContent, Module } from '../types'
 import { convertFromLessonResponse, CreateLessonDto, LessonResponse } from './models/lessons.models'
 import { CreateModuleDto, getCourseContentResponse } from './models/module.models'
 
@@ -29,6 +29,19 @@ export async function getCourseContent(courseId: number): Promise<CourseContent>
     })
 
     return { modules: convertedModules }
+  } catch (error) {
+    if (error instanceof Array && error.length) {
+      throw new ResponseValidateError(new Error(error.toString()))
+    }
+    return Promise.reject(error)
+  }
+}
+
+export async function getCourseCheckList(courseId: number): Promise<CourseChecklist> {
+  try {
+    const res = await axios.get<CourseChecklist>(`courses/${courseId}/checklist`)
+
+    return res.data
   } catch (error) {
     if (error instanceof Array && error.length) {
       throw new ResponseValidateError(new Error(error.toString()))

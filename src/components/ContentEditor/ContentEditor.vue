@@ -10,6 +10,7 @@
       content-type="html"
       theme="snow"
       @keyup="saveDebounce"
+      @blur="$emit('save')"
     />
   </div>
 </template>

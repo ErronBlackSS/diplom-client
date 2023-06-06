@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-[20px]">
+  <ViewWrapper class="flex flex-col gap-[10px]">
     <p v-if="showCreateFirstCourse">У вас еще нет ни одного курса, создайте первый!</p>
     <div class="flex flex-col justify-center gap-[5px]">
       <label for="create-course">Название курса <span class="text-red-500">*</span></label>
@@ -18,15 +18,17 @@
         Cоздать курс
       </button>
     </div>
-  </div>
+  </ViewWrapper>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapStores } from 'pinia'
 import { useCoursesStore } from '@/modules/courses/store'
+import ViewWrapper from '@/components/ViewWrapper.vue'
 
 export default defineComponent({
+  components: { ViewWrapper },
   data: () => ({
     courseName: '',
     errorText: ''

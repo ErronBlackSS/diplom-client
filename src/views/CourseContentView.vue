@@ -43,6 +43,7 @@ export default defineComponent({
     async loadCourseContent(courseId: number) {
       try {
         await this.courseContentStore.getCourseContent(courseId)
+        await this.courseContentStore.getCheckList(courseId)
       } finally {
         this.isLoading = false
       }
