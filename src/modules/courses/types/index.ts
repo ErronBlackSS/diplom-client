@@ -3,4 +3,5 @@ export type Course = {
   name: string
   dateCreate: string
   creatorId: number
+  published: boolean
 }

@@ -10,7 +10,7 @@ export const useCourseContentStore = defineStore('courseContent', {
   }),
   getters: {
     checkListDone(state) {
-      if (!state.checkList) return
+      if (!state.checkList) return false
       const checklist = state.checkList
       if (
         !checklist.emptyModules ||

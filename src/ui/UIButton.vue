@@ -1,7 +1,7 @@
 <template>
   <button
     class="px-[20px] py-[15px] outline-none border border-[#F1F1F1] rounded-[6px]"
-    :class="className"
+    :class="{ className, 'cursor-not-allowed': disabled }"
     :disabled="disabled"
   >
     <slot />

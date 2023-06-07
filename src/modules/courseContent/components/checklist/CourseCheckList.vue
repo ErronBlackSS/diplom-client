@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col border">
+  <div
+    class="flex flex-col border rounded-[6px]"
+    :class="{ 'border-red-500': !done, 'border-green-500': done }"
+  >
     <CheckListItem :condition="checkList.emptyModules">
       Каждый модуль должен содержать как минимум 1 урок
     </CheckListItem>
@@ -40,6 +43,10 @@ export default defineComponent({
   props: {
     checkList: {
       type: Object as PropType<CourseChecklist>,
+      required: true
+    },
+    done: {
+      type: Boolean,
       required: true
     }
   }

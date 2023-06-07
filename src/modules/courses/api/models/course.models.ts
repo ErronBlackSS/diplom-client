@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator'
+import { IsBoolean, IsNumber, IsString } from 'class-validator'
 import { Course } from '../../types'
 
 export class CourseResponse {
@@ -11,6 +11,9 @@ export class CourseResponse {
   @IsString()
   dateCreate: string
 
+  @IsBoolean()
+  published: boolean
+
   @IsNumber()
   creatorId: number
 }
@@ -20,7 +23,8 @@ export function convertFromCourseResponse(course: CourseResponse): Course {
     id: course.id,
     name: course.name,
     dateCreate: course.dateCreate,
-    creatorId: course.creatorId
+    creatorId: course.creatorId,
+    published: course.published
   }
 }
 

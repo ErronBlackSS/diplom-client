@@ -30,6 +30,9 @@ export const useCoursesStore = defineStore('courses', {
       await Api.deleteCourse(courseId)
       this.userCourses = this.userCourses.filter((course) => course.id !== courseId)
     },
+    async publishCourse(courseId: number) {
+      await Api.updateCourse(courseId, { published: true })
+    },
     async renameCourse(courseId: number, name: string) {
       await Api.updateCourse(courseId, { name })
       const course = this.userCourses.find((course) => course.id === courseId)
