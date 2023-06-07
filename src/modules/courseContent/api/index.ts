@@ -1,5 +1,6 @@
 import { ResponseValidateError } from '@/helpers/error_validation'
 import { convertToOrderRequest, convertFromOrderResponse } from '@/helpers/functions'
+import { convertFromCourseResponse } from '@/modules/courses/api/models/course.models'
 import axios from '@/plugins/axios'
 import { transformAndValidate } from 'class-transformer-validator'
 import { CourseChecklist, CourseContent, Module } from '../types'
@@ -28,7 +29,9 @@ export async function getCourseContent(courseId: number): Promise<CourseContent>
       return { ...module, lessons: convertedLessons }
     })
 
-    return { modules: convertedModules }
+    const course = convertFromCourseResponse(result.course)
+
+    return { modules: convertedModules, course: course }
   } catch (error) {
     if (error instanceof Array && error.length) {
       throw new ResponseValidateError(new Error(error.toString()))

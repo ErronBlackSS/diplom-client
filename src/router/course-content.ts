@@ -26,6 +26,11 @@ export default [
         component: () => import('@/modules/courseContent/components/CourseSettings.vue')
       },
       {
+        path: 'publication',
+        name: 'course-publication',
+        component: () => import('@/modules/courseContent/components/CoursePublication.vue')
+      },
+      {
         path: 'students',
         name: 'course-students',
         component: () => import('@/modules/courseContent/components/CourseStudents.vue')

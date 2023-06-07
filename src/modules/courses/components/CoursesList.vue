@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-[50vw] gap-[10px]">
     <div v-for="{ name, id } in courses" :key="id">
-      <CourseCard @delete="deleteCourse" @rename="renameCourse" :name="name" :id="id" />
+      <CourseCard @delete="deleteCourse" :name="name" :id="id" />
     </div>
   </div>
 </template>
@@ -19,13 +19,10 @@ export default defineComponent({
       default: () => []
     }
   },
-  emits: ['delete', 'rename'],
+  emits: ['delete'],
   methods: {
     deleteCourse(id: number) {
       this.$emit('delete', id)
-    },
-    renameCourse(id: number, name: string) {
-      this.$emit('rename', id, name)
     }
   }
 })

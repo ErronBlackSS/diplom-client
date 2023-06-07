@@ -2,9 +2,11 @@ import { defineStore } from 'pinia'
 import { CourseChecklist, Module } from '../types'
 import * as Api from '../api/.'
 import { Lesson } from '../types/lessons'
+import { Course } from '@/modules/courses/types'
 
 export const useCourseContentStore = defineStore('courseContent', {
   state: () => ({
+    course: {} as Course,
     modules: [] as Module[],
     checkList: {} as CourseChecklist
   }),
@@ -51,6 +53,7 @@ export const useCourseContentStore = defineStore('courseContent', {
     },
     async getCourseContent(courseId: number) {
       const courseContent = await Api.getCourseContent(courseId)
+      this.course = courseContent.course
       this.modules = courseContent.modules
     },
     async getCheckList(courseId: number) {

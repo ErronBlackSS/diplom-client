@@ -5,7 +5,7 @@
     @blur="$emit('blur')"
     @keyup.enter="$emit('enter')"
     :placeholder="placeholder"
-    class="h-[42px] overflow-hidden flex gap-[12px] items-center px-[14px] box-border border border-[#212022]/[.12] focus:border-[#444444] outline-none rounded-[6px] justify-between"
+    class="bg-[#f4f5f7]/50 rounded-[6px] pr-[10px] focus:ring-0 border border-black/12 focus:border-[#007BE5] px-[14px] py-[11px] text-[14px] leading-[16px] text-[#4c4c4d] focus:outline-none"
     :class="className"
   />
 </template>

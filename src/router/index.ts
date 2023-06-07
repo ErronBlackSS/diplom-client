@@ -24,7 +24,7 @@ const router = createRouter({
           meta: {
             title: 'Каталог'
           },
-          component: () => import('@/views/MainPage.vue')
+          component: () => import('@/views/СatalogView.vue')
         },
         ...LearnRouter,
         ...TeachRouter,

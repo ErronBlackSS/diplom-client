@@ -3,7 +3,7 @@
   <ViewWrapper v-else class="flex flex-col gap-[20px]">
     <ViewTitle title="Мои курсы" />
     <CreateCourse v-if="!userCourses.length" :show-create-first-course="emptyCourses" />
-    <CoursesList :courses="userCourses" @rename="renameCourse" @delete="deleteCourse" />
+    <CoursesList :courses="userCourses" @delete="deleteCourse" />
   </ViewWrapper>
 </template>
 
@@ -47,9 +47,6 @@ export default defineComponent({
   methods: {
     deleteCourse(id: number) {
       this.coursesStore.deleteCourse(id)
-    },
-    renameCourse(id: number, name: string) {
-      this.coursesStore.renameCourse(id, name)
     }
   }
 })

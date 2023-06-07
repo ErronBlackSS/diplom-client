@@ -1,3 +1,4 @@
+import { Course } from '@/modules/courses/types'
 import { Lesson } from './lessons'
 
 export type Module = {
@@ -9,6 +10,7 @@ export type Module = {
 }
 
 export type CourseContent = {
+  course: Course
   modules: Module[]
 }
 

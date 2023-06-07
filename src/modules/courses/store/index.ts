@@ -40,6 +40,13 @@ export const useCoursesStore = defineStore('courses', {
       if (!course) return
       course.name = name
     },
+    async changePromoText(courseId: number, promo: string) {
+      await Api.updateCourse(courseId, { promo })
+      const course = this.userCourses.find((course) => course.id === courseId)
+
+      if (!course) return
+      course.promo = promo
+    },
     addCourse(course: Course) {
       this.userCourses.push(course)
     }

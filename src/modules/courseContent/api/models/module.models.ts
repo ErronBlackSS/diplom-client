@@ -1,3 +1,5 @@
+import { CourseResponse } from '@/modules/courses/api/models/course.models'
+import { Course } from '@/modules/courses/types'
 import { Type } from 'class-transformer'
 import { IsString, IsNumber, IsArray, ValidateNested } from 'class-validator'
 import { LessonResponse } from './lessons.models'
@@ -40,4 +42,8 @@ export class getCourseContentResponse {
   @ValidateNested({ each: true })
   @Type(() => ModuleResponse)
   modules: ModuleResponse[]
+
+  @ValidateNested()
+  @Type(() => CourseResponse)
+  course: Course
 }

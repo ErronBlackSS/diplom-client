@@ -43,7 +43,7 @@ export default defineComponent({
     modules(): Module[] {
       return this.courseContentStore.modules
     },
-    courseId(): number {
+    courseId() {
       return Number(this.$route.params.courseId)
     },
     emptyModules() {

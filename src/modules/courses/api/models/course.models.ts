@@ -1,3 +1,4 @@
+import { IsNullable } from '@/helpers/functions'
 import { IsBoolean, IsNumber, IsString } from 'class-validator'
 import { Course } from '../../types'
 
@@ -16,6 +17,9 @@ export class CourseResponse {
 
   @IsNumber()
   creatorId: number
+
+  @IsNullable()
+  promo: string | null
 }
 
 export function convertFromCourseResponse(course: CourseResponse): Course {
@@ -24,7 +28,8 @@ export function convertFromCourseResponse(course: CourseResponse): Course {
     name: course.name,
     dateCreate: course.dateCreate,
     creatorId: course.creatorId,
-    published: course.published
+    published: course.published,
+    promo: course.promo
   }
 }
 

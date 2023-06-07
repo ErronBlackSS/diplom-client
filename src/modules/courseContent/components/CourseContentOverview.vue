@@ -1,9 +1,7 @@
 <template>
-  <ViewWrapper>
+  <ViewWrapper class="flex flex-col gap-[20px]">
     <ViewTitle title="Программа курса" />
-    <div class="py-[10px]">
-      <UIButton @click="gotoEdit"> Редактировать содержание </UIButton>
-    </div>
+    <UIButton class="w-fit" @click="gotoEdit"> Редактировать содержание </UIButton>
     <div v-for="(_module, index) in modules" :key="_module.id">
       <ModuleOverview :module="_module" :order="index + 1" />
     </div>

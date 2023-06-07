@@ -21,8 +21,8 @@
       </div>
       <template #menu>
         <div class="flex flex-col gap-[10px]">
-          <div class="cursor-pointer" @click="showRenameCourse">
-            <p>Изменить название</p>
+          <div class="cursor-pointer" @click="gotoEdit">
+            <p>Редактировать</p>
           </div>
           <div class="cursor-pointer text-red-500" @click="showDeleteCourse">
             <p>Удалить</p>
@@ -36,12 +36,6 @@
       </div>
     </router-link>
   </div>
-  <ModalBoxChangeCourseName
-    v-if="showRenameCourseModal"
-    :current-name="name"
-    @save="renameCourse"
-    @close="showRenameCourseModal = false"
-  />
   <ModalBoxDeleteCourse
     v-if="showDeleteCourseModal"
     :name="name"
@@ -53,14 +47,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PopMenu from '@/components/PopMenu.vue'
-import ModalBoxChangeCourseName from './ModalBoxes/ModalBoxChangeCourseName.vue'
 import ModalBoxDeleteCourse from './ModalBoxes/ModalBoxDeleteCourse.vue'
 
 export default defineComponent({
-  components: { PopMenu, ModalBoxChangeCourseName, ModalBoxDeleteCourse },
+  components: { PopMenu, ModalBoxDeleteCourse },
   data: () => ({
-    showDeleteCourseModal: false,
-    showRenameCourseModal: false
+    showDeleteCourseModal: false
   }),
   props: {
     name: {
@@ -72,26 +64,25 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['delete', 'rename'],
+  emits: ['delete'],
   computed: {
     courseDetailLink() {
       return `/course/${this.id}/overview`
+    },
+    courseEditLink() {
+      return `/course/${this.id}/edit`
     }
   },
   methods: {
     showDeleteCourse() {
       this.showDeleteCourseModal = true
     },
-    showRenameCourse() {
-      this.showRenameCourseModal = true
-    },
     deleteCourse() {
       this.showDeleteCourseModal = false
       this.$emit('delete', this.id)
     },
-    renameCourse(name: string) {
-      this.showRenameCourseModal = false
-      this.$emit('rename', this.id, name)
+    gotoEdit() {
+      this.$router.push(this.courseEditLink)
     }
   }
 })

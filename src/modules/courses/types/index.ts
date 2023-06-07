@@ -4,4 +4,5 @@ export type Course = {
   dateCreate: string
   creatorId: number
   published: boolean
+  promo: string | null
 }
