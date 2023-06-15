@@ -18,8 +18,13 @@ export class CourseResponse {
   @IsNumber()
   creatorId: number
 
+  @IsString()
   @IsNullable()
   promo: string | null
+
+  @IsString()
+  @IsNullable()
+  imagePath: string | null
 }
 
 export function convertFromCourseResponse(course: CourseResponse): Course {
@@ -29,7 +34,8 @@ export function convertFromCourseResponse(course: CourseResponse): Course {
     dateCreate: course.dateCreate,
     creatorId: course.creatorId,
     published: course.published,
-    promo: course.promo
+    promo: course.promo,
+    imagePath: course.imagePath
   }
 }
 

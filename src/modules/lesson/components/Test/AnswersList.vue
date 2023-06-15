@@ -4,7 +4,7 @@
       v-for="{ id, name, isRight } in answers"
       :key="id"
       class="bg-white border border-[#e0e0e0] rounded-[8px] min-h-[51px] grow flex items-center justify-between p-[14px]"
-      :class="{ 'border-[#00e500]': selectedAnswers.includes(id) || (isPassed && isRight) }"
+      :class="{ '!border-[#00e500]': selectedAnswers.includes(id) || (isPassed && isRight) }"
       @click="selectAnswer(id)"
     >
       <div class="flex flex-row gap-[5px]">

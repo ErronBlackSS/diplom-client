@@ -68,6 +68,12 @@ export default defineComponent({
     async loadLessonsWithSteps(moduleId: number) {
       try {
         await this.lessonStore.getEditLessonContent(moduleId)
+        if (!this.lessonId && this.modules) {
+          const firstLessonId = this.modules[0].lessons[0].id
+          this.$router.push({
+            path: `/lesson/${this.courseId}/${firstLessonId}`
+          })
+        }
       } finally {
         this.isLoading = false
       }

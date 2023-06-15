@@ -21,7 +21,7 @@ export async function createCourse(name: string): Promise<Course> {
   }
 }
 
-export async function getUserCourses(): Promise<Course[]> {
+export async function getUserOwnerCourses(): Promise<Course[]> {
   try {
     const res = await axios.get<CourseResponse[]>('/courses')
 
@@ -53,6 +53,19 @@ export async function updateCourse(courseId: number, data: Partial<Course>) {
     const result = await transformAndValidate(CourseResponse, res.data)
 
     return result
+  } catch (error) {
+    if (error instanceof Array && error.length) {
+      throw new ResponseValidateError(new Error(error.toString()))
+    }
+    return Promise.reject(error)
+  }
+}
+
+export async function updateCourseImage(courseId: number, image: FormData) {
+  try {
+    const res = await axios.post(`/courses/${courseId}/image`, image)
+
+    return res.data
   } catch (error) {
     if (error instanceof Array && error.length) {
       throw new ResponseValidateError(new Error(error.toString()))

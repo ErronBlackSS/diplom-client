@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row gap-[30px]">
-    <AsideMenu>
+    <AsideMenu :width="230">
       <div>Мои курсы</div>
       <div>Классы</div>
       <div>Викторины</div>

@@ -18,9 +18,9 @@ export const useCoursesStore = defineStore('courses', {
     }
   },
   actions: {
-    async getUserCourses() {
-      const userCourses = await Api.getUserCourses()
-      this.userCourses = userCourses
+    async getUserOwnerCourses() {
+      const userOwnerCourses = await Api.getUserOwnerCourses()
+      this.userCourses = userOwnerCourses
     },
     async createCourse(name: string) {
       const newCourse = await Api.createCourse(name)
@@ -46,6 +46,13 @@ export const useCoursesStore = defineStore('courses', {
 
       if (!course) return
       course.promo = promo
+    },
+    async changeCourseImage(courseId: number, image: FormData) {
+      const newPath = await Api.updateCourseImage(courseId, image)
+      const course = this.userCourses.find((course) => course.id === courseId)
+
+      if (!course) return
+      course.imagePath = newPath
     },
     addCourse(course: Course) {
       this.userCourses.push(course)

@@ -8,3 +8,21 @@ export async function getCatalog() {
     return Promise.reject(error)
   }
 }
+
+export async function getCoursePromo(courseId: number) {
+  try {
+    const res = await axios.get(`catalog/${courseId}/promo`)
+    return res.data
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export async function bookOnCourse(courseId: number) {
+  try {
+    const res = await axios.post(`courses/${courseId}/book`)
+    return res.data
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}

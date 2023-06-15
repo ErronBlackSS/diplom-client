@@ -5,4 +5,5 @@ export type Course = {
   creatorId: number
   published: boolean
   promo: string | null
+  imagePath: string | null
 }

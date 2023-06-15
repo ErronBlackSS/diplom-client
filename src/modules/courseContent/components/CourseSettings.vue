@@ -1,20 +1,17 @@
 <template>
   <ViewWrapper class="flex flex-col gap-[20px]">
     <div class="flex flex-col justify-center gap-[15px]">
+      <img @click="changeCourseImage" class="cursor-pointer w-[200px] h-[200px]" :src="image" />
       <div class="flex flex-col gap-[5px]">
         <label for="course-name">Название курса <span class="text-red-500">*</span></label>
-        <CustomInput
-          id="course-name"
-          @input="renameCourse"
-          v-model="name"
-          class="bg-[#f4f5f7]/50 rounded-[6px] pr-[10px] focus:ring-0 border border-black/12 focus:border-[#007BE5] px-[14px] py-[11px] text-[14px] leading-[16px] text-[#4c4c4d] focus:outline-none"
-        />
+        <CustomInput id="course-name" @input="renameCourse" v-model="name" />
       </div>
       <div class="flex flex-col gap-[5px]">
         <label for="course-name">Описание курса <span class="text-red-500">*</span></label>
         <ContentEditor v-model="promo" @save="saveCoursePromo" />
       </div>
     </div>
+    <input type="file" class="hidden" accept="image/*" ref="imageInput" @change="saveCourseImage" />
   </ViewWrapper>
 </template>
 
@@ -27,7 +24,7 @@ import { useCourseContentStore } from '../store'
 import CustomInput from '@/ui/CustomInput.vue'
 import ContentEditor from '@/components/ContentEditor/ContentEditor.vue'
 import { debounce } from '@/helpers/functions'
-import { saveNotify } from '@/helpers/notifications'
+import { errorNotify, saveNotify } from '@/helpers/notifications'
 
 export default defineComponent({
   components: { ViewWrapper, CustomInput, ContentEditor },
@@ -48,6 +45,12 @@ export default defineComponent({
     },
     coursePromo() {
       return this.currentCourse.promo || ''
+    },
+    image() {
+      if (this.currentCourse.imagePath) {
+        return `${this.currentCourse.imagePath}`
+      }
+      return 'xui'
     }
   },
   mounted() {
@@ -66,7 +69,26 @@ export default defineComponent({
     saveCoursePromo: debounce(function (this: any) {
       this.coursesStore.changePromoText(this.courseId, this.promo)
       saveNotify('Описание курса сохранено')
-    }, 1500)
+    }, 1500),
+    changeCourseImage() {
+      const input = this.$refs.imageInput as HTMLInputElement
+      input.click()
+    },
+    async saveCourseImage(e: Event) {
+      const target = e.target as HTMLInputElement
+      if (target.files) {
+        if (
+          !target.files[0].type.includes('image/jpeg') &&
+          !target.files[0].type.includes('image/png')
+        ) {
+          errorNotify('Не удалось изменить картинку курса. Неверный формат файла')
+          return
+        }
+        const formData = new FormData()
+        formData.append('file', target.files[0])
+        await this.coursesStore.changeCourseImage(this.courseId, formData)
+      }
+    }
   }
 })
 </script>

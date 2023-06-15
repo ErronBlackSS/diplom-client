@@ -26,6 +26,22 @@ const router = createRouter({
           },
           component: () => import('@/views/СatalogView.vue')
         },
+        {
+          path: '/profile',
+          name: 'profile',
+          meta: {
+            title: 'Профиль'
+          },
+          component: () => import('@/views/ProfileView.vue')
+        },
+        {
+          path: '/catalog/:courseId/promo',
+          name: 'cource-promo',
+          meta: {
+            title: 'Каталог - Промо'
+          },
+          component: () => import('@/views/CoursePromoView.vue')
+        },
         ...LearnRouter,
         ...TeachRouter,
         ...CourseContentRouter,

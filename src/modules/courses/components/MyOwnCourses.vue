@@ -39,7 +39,7 @@ export default defineComponent({
   },
   async mounted() {
     try {
-      await this.coursesStore.getUserCourses()
+      await this.coursesStore.getUserOwnerCourses()
     } finally {
       this.isLoading = false
     }

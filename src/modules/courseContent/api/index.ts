@@ -30,6 +30,7 @@ export async function getCourseContent(courseId: number): Promise<CourseContent>
     })
 
     const course = convertFromCourseResponse(result.course)
+    console.log(course, 'transformed course')
 
     return { modules: convertedModules, course: course }
   } catch (error) {
