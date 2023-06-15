@@ -11,7 +11,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { mapStores } from 'pinia'
 
 export default defineComponent({
   props: {
@@ -23,12 +22,7 @@ export default defineComponent({
       type: Number,
       required: true
     }
-  },
-  emits: [],
-  computed: {
-    ...mapStores([])
-  },
-  methods: {}
+  }
 })
 </script>
 

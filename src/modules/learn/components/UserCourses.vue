@@ -4,7 +4,7 @@
     <ViewTitle title="Мое обучение" />
     <div v-if="userCourses.length === 0">
       <p>Вы еще не записаны ни на один курс(</p>
-      <p class="text-main-blue cursor-pointer font-[600]">Перейти в каталог</p>
+      <a href="/" class="text-main-blue cursor-pointer font-[600]">Перейти в каталог</a>
     </div>
     <div v-else>
       <div class="flex flex-col w-[50vw] gap-[10px]">

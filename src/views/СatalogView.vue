@@ -1,7 +1,7 @@
 <template>
   <ViewWrapper class="mx-auto w-[1100px]">
     <MainLoader v-if="isLoading" />
-    <CatalogList v-else :catalog-courses="multipleCatalog" />
+    <CatalogList v-else :catalog-courses="catalog" />
   </ViewWrapper>
 </template>
 
@@ -22,9 +22,6 @@ export default defineComponent({
     ...mapStores(useCatalogStore),
     catalog() {
       return this.catalogStore.catalog
-    },
-    multipleCatalog() {
-      return [...this.catalog, ...this.catalog, ...this.catalog, ...this.catalog]
     }
   },
   async mounted() {
